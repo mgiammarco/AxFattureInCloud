@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea31877fcfea4c15bc5af56e05aa5777" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE" Width="2" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE_CATEGORY" Width="2.25" PointX="5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TREGISTRY_PROVINCE" Width="1.5" PointX="3.5" PointY="6.875" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_COUNTRY" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TREGISTRY_STATE" Width="1.5" PointX="0.75" PointY="9.875" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_STATE" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_BILL" Width="2.25" PointX="8.375" PointY="1" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" Width="2.25" PointX="11.5" PointY="1" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY" Width="2.75" PointX="7.75" PointY="6.5" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING" Width="2.375" PointX="11.5" PointY="5.5" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING_STEP" Width="2" PointX="14.75" PointY="5.5" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAILTORDER_ACTIVITY_BILLING" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY_BILLING_STEP" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE" Width="2" PointX="14.75" PointY="1.125" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_PLANNING" Width="1.5" PointX="11.75" PointY="10.75" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPE" Width="1.5" PointX="17.625" PointY="1.125" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICETCLIENT_BILL_DETAIL" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TCLIENT_BILLTCLIENT" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPETCLIENT_DOMAIN_SERVICE" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_ACCOUNTING" Width="1.75" PointX="3.25" PointY="9.875" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCOURSE_EDITION_MEMBER" Width="1.5" PointX="8.5" PointY="14.625" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER" Width="1.5" PointX="6.25" PointY="13.125" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TCOURSE_MEMBERTREGISTRY_PROVINCE" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.TCLIENTTCLIENT_ACCOUNTING" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_TCLIENT" />
+        <EntityTypeShape EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" Width="1.5" PointX="3" PointY="16" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE" />
+        <AssociationConnector Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

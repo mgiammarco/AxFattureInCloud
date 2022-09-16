@@ -1,0 +1,1921 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GESTISCO.CONSULAREAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TACTIVITY_TYPE">
+          <Key>
+            <PropertyRef Name="IDTYPE" />
+          </Key>
+          <Property Name="IDTYPE" Type="smallint" Nullable="false" />
+          <Property Name="IDTYPE_CATEGORY" Type="tinyint" Nullable="false" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TYPE_POS" Type="tinyint" />
+          <Property Name="TYPE_HIDE" Type="bit" Nullable="false" />
+          <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="MODIFYDATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TACTIVITY_TYPE_CATEGORY">
+          <Key>
+            <PropertyRef Name="IDCATEGORY" />
+          </Key>
+          <Property Name="IDCATEGORY" Type="tinyint" Nullable="false" />
+          <Property Name="IDCATEGORY_COMPANY" Type="int" Nullable="false" />
+          <Property Name="CATEGORY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="COLOR" Type="nvarchar" MaxLength="7" />
+          <Property Name="CATEGORY_POS" Type="tinyint" />
+          <Property Name="CATEGORY_HIDE" Type="bit" Nullable="false" />
+          <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="MODIFYDATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT">
+          <Key>
+            <PropertyRef Name="IDCLIENT" />
+          </Key>
+          <Property Name="IDCLIENT" Type="int" Nullable="false" />
+          <Property Name="IDCLIENT_CORPORATE" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ALIAS" Type="nvarchar" MaxLength="100" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="100" />
+          <Property Name="LOCALITY" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZIPCODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="IDCLIENT_PROVINCE" Type="int" />
+          <Property Name="IDCLIENT_STATE" Type="int" />
+          <Property Name="VATNUMBER" Type="nvarchar" MaxLength="16" />
+          <Property Name="FISCAL_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="PHONE1" Type="nvarchar" MaxLength="100" />
+          <Property Name="PHONE2" Type="nvarchar" MaxLength="50" />
+          <Property Name="MOBILE" Type="nvarchar" MaxLength="50" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="150" />
+          <Property Name="EMAIL2" Type="nvarchar" MaxLength="150" />
+          <Property Name="EMAIL3" Type="nvarchar" MaxLength="150" />
+          <Property Name="WEB" Type="nvarchar" MaxLength="100" />
+          <Property Name="PRIVACY" Type="bit" />
+          <Property Name="NOTE" Type="nvarchar(max)" />
+          <Property Name="IDCLIENT_ACTIVITY" Type="int" />
+          <Property Name="IDCLIENT_SECTOR" Type="int" />
+          <Property Name="ACTIVITYNOTE" Type="ntext" />
+          <Property Name="IDCLIENT_EMPLOYEE" Type="int" />
+          <Property Name="IDCLIENT_COMPETITOR" Type="int" />
+          <Property Name="IDCLIENT_BUDGET" Type="int" />
+          <Property Name="IDCLIENT_TURNOVER" Type="int" />
+          <Property Name="GROUPNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="CLIENT_NEWSLETTER" Type="bit" Nullable="false" />
+          <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="IDCLIENT_FONDO" Type="smallint" />
+          <Property Name="CODICEFATTURAZIONE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TCLIENT_ACCOUNTING">
+          <Key>
+            <PropertyRef Name="IDACCOUNTING_CLIENT" />
+            <PropertyRef Name="IDACCOUNTING_COMPANY" />
+          </Key>
+          <Property Name="IDACCOUNTING_CLIENT" Type="int" Nullable="false" />
+          <Property Name="IDACCOUNTING_COMPANY" Type="int" Nullable="false" />
+          <Property Name="BANK" Type="nvarchar" MaxLength="50" />
+          <Property Name="BANK_SEAT" Type="nvarchar" MaxLength="100" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="27" />
+          <Property Name="PAYMENT" Type="nvarchar" MaxLength="100" />
+          <Property Name="ABI" Type="nvarchar" MaxLength="5" />
+          <Property Name="CAB" Type="nvarchar" MaxLength="5" />
+          <Property Name="ISTATCODE" Type="nvarchar" MaxLength="20" />
+          <Property Name="BOOKCODE" Type="nvarchar" MaxLength="20" />
+          <Property Name="SPLIT_PAYMENT" Type="nvarchar" MaxLength="100" />
+          <Property Name="LETTERA_DINTENTI" Type="nvarchar" MaxLength="100" />
+          <Property Name="BILLNOTE" Type="ntext" />
+          <Property Name="SPESEINCASSO" Type="bit" Nullable="false" />
+          <Property Name="SPESEINCASSOVAL" Type="money" />
+          <Property Name="ESENZIONEIVA" Type="bit" Nullable="false" />
+          <Property Name="ESENZIONEIVADESC" Type="nvarchar(max)" />
+          <Property Name="RIMBORSOKM" Type="bit" Nullable="false" />
+          <Property Name="RIMBORSOKMVAL" Type="money" />
+          <Property Name="RIMBORSOFORFAIT" Type="money" />
+          <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="MODIFYDATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_BILL">
+          <Key>
+            <PropertyRef Name="IDBILL" />
+          </Key>
+          <Property Name="IDBILL" Type="int" Nullable="false" />
+          <Property Name="IDBILL_COMPANY" Type="int" Nullable="false" />
+          <Property Name="IDBILL_CLIENT" Type="int" Nullable="false" />
+          <Property Name="IDBILL_DATI_FATTURAZIONE" Type="int" />
+          <Property Name="IDBILL_YEAR" Type="smallint" Nullable="false" />
+          <Property Name="IDBILL_MONTH" Type="smallint" Nullable="false" />
+          <Property Name="BILL_NUM" Type="int" />
+          <Property Name="BILL_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="BILL_IMPORT" Type="float" Nullable="false" />
+          <Property Name="BILL_NOTE" Type="nvarchar(max)" />
+          <Property Name="BILL_NOTE_PRINT" Type="nvarchar(max)" />
+          <Property Name="BILL_TYPE" Type="nvarchar" MaxLength="10" />
+          <Property Name="BILL_RECEIVED" Type="bit" Nullable="false" />
+          <Property Name="BILL_IMPORT_RECEIVED" Type="float" />
+          <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_BILL_DETAIL">
+          <Key>
+            <PropertyRef Name="IDDETAIL" />
+          </Key>
+          <Property Name="IDDETAIL" Type="int" Nullable="false" />
+          <Property Name="IDDETAIL_BILL" Type="int" Nullable="false" />
+          <Property Name="IDDETAIL_COMPANY" Type="int" Nullable="false" />
+          <Property Name="IDDETAIL_CLIENT" Type="int" Nullable="false" />
+          <Property Name="IDDETAIL_DATI_FATTURAZIONE" Type="int" />
+          <Property Name="IDDETAIL_YEAR" Type="smallint" Nullable="false" />
+          <Property Name="IDDETAIL_MONTH" Type="smallint" Nullable="false" />
+          <Property Name="IDDETAIL_SERVICE" Type="int" />
+          <Property Name="IDDETAIL_ACTIVITY_BILLING" Type="int" />
+          <Property Name="DETAIL_TYPE" Type="nvarchar" MaxLength="50" />
+          <Property Name="DETAIL_PRICE" Type="float" />
+          <Property Name="DETAIL_NOTE" Type="nvarchar(max)" />
+          <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_DATI_FATTURAZIONE">
+          <Key>
+            <PropertyRef Name="IDDATI_FATTURAZIONE" />
+          </Key>
+          <Property Name="IDDATI_FATTURAZIONE" Type="int" Nullable="false" />
+          <Property Name="IDDATI_FATTURAZIONE_CLIENT" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="100" />
+          <Property Name="LOCALITY" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZIPCODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="IDDATI_FATTURAZIONE_PROVINCE" Type="int" />
+          <Property Name="IDDATI_FATTURAZIONE_STATE" Type="int" />
+          <Property Name="VATNUMBER" Type="nvarchar" MaxLength="16" />
+          <Property Name="FISCAL_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CODICEFATTURAZIONE" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATI_FATTURAZIONEHIDE" Type="bit" Nullable="false" />
+          <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_DOMAIN_SERVICE">
+          <Key>
+            <PropertyRef Name="IDSERVICE" />
+          </Key>
+          <Property Name="IDSERVICE" Type="int" Nullable="false" />
+          <Property Name="IDSERVICE_DOMAIN" Type="int" Nullable="false" />
+          <Property Name="IDSERVICE_TYPE" Type="tinyint" Nullable="false" />
+          <Property Name="IDSERVICE_SERVER" Type="tinyint" />
+          <Property Name="IDSERVICE_PLANNING" Type="tinyint" />
+          <Property Name="IDSERVICE_DATI_FATTURAZIONE" Type="int" />
+          <Property Name="ACTIVATIONDATE" Type="smalldatetime" />
+          <Property Name="BILLDATE" Type="smalldatetime" />
+          <Property Name="ENDBILLDATE" Type="smalldatetime" />
+          <Property Name="SERVICE_COST" Type="float" />
+          <Property Name="SERVICE_PRICE" Type="float" />
+          <Property Name="SERVICE_NOTE" Type="nvarchar(max)" />
+          <Property Name="SERVICE_HIDE" Type="bit" Nullable="false" />
+          <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_DOMAIN_SERVICE_PLANNING">
+          <Key>
+            <PropertyRef Name="IDPLANNING" />
+          </Key>
+          <Property Name="IDPLANNING" Type="tinyint" Nullable="false" />
+          <Property Name="PLANNING" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PLANNING_VALUE" Type="tinyint" Nullable="false" />
+          <Property Name="PLANNING_HIDE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_DOMAIN_SERVICE_TYPE">
+          <Key>
+            <PropertyRef Name="IDTYPE" />
+          </Key>
+          <Property Name="IDTYPE" Type="tinyint" Nullable="false" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TYPE_POS" Type="smallint" Nullable="false" />
+          <Property Name="TYPE_HIDE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCOURSE_EDITION_MEMBER">
+          <Key>
+            <PropertyRef Name="IDEDITION_LINK" />
+            <PropertyRef Name="IDMEMBER_LINK" />
+          </Key>
+          <Property Name="IDEDITION_LINK" Type="int" Nullable="false" />
+          <Property Name="IDMEMBER_LINK" Type="int" Nullable="false" />
+          <Property Name="HOURNUM" Type="tinyint" />
+          <Property Name="PERC" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ATTESTATO" Type="bit" Nullable="false" />
+          <Property Name="ATTESTATONUM" Type="smallint" />
+          <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="QUOTAPERS" Type="money" />
+          <Property Name="MODIFYDATE" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="TCOURSE_MEMBER">
+          <Key>
+            <PropertyRef Name="IDMEMBER" />
+          </Key>
+          <Property Name="IDMEMBER" Type="int" Nullable="false" />
+          <Property Name="IDMEMBER_CORPORATE" Type="int" Nullable="false" />
+          <Property Name="IDMEMBER_CLIENT" Type="int" />
+          <Property Name="IDMEMBER_GROUP" Type="int" />
+          <Property Name="FIRSTNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LASTNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="BIRTHDATE" Type="smalldatetime" />
+          <Property Name="BIRTHPLACE" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="100" />
+          <Property Name="LOCALITY" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDMEMBER_PROVINCE" Type="int" />
+          <Property Name="ZIPCODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="TELEPHONE" Type="nvarchar" MaxLength="50" />
+          <Property Name="MOBILE" Type="nvarchar" MaxLength="50" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="FISCALCODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="VAT" Type="nvarchar" MaxLength="50" />
+          <Property Name="PAYMENT" Type="nvarchar" MaxLength="100" />
+          <Property Name="BANK" Type="nvarchar" MaxLength="50" />
+          <Property Name="IBAN" Type="nvarchar" MaxLength="27" />
+          <Property Name="MANSIONE" Type="nvarchar" MaxLength="100" />
+          <Property Name="MEMBERHIDE" Type="bit" Nullable="false" />
+          <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="MODIFYDATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TORDER_ACTIVITY">
+          <Key>
+            <PropertyRef Name="IDACTIVITY" />
+          </Key>
+          <Property Name="IDACTIVITY" Type="int" Nullable="false" />
+          <Property Name="IDACTIVITY_ORDER" Type="int" />
+          <Property Name="IDACTIVITY_OFFER_ACTIVITY" Type="int" />
+          <Property Name="IDCATEGORY" Type="tinyint" Nullable="false" />
+          <Property Name="CATEGORY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDACTIVITY_TYPE" Type="smallint" Nullable="false" />
+          <Property Name="ACTIVITY_TYPE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="ACTIVITY_NOTE" Type="nvarchar(max)" />
+          <Property Name="IDUSER_REG" Type="int" />
+          <Property Name="REGDATE" Type="smalldatetime" />
+          <Property Name="STARTDATE" Type="smalldatetime" />
+          <Property Name="IDUSER_RESP" Type="int" />
+          <Property Name="EXPIRYDATE" Type="smalldatetime" />
+          <Property Name="ENDDATE" Type="smalldatetime" />
+          <Property Name="HOUR" Type="float" />
+          <Property Name="SPRICE" Type="float" />
+          <Property Name="IDACTIVITY_MODE" Type="tinyint" Nullable="false" />
+          <Property Name="IDACTIVITY_STATUS" Type="tinyint" Nullable="false" />
+          <Property Name="IDACTIVITY_PROGRESS" Type="tinyint" Nullable="false" />
+          <Property Name="WORKUSERS" Type="nvarchar" MaxLength="50" />
+          <Property Name="MONITORING" Type="bit" Nullable="false" />
+          <Property Name="RIMBUSER" Type="float" />
+          <Property Name="IMPORTUSER" Type="float" />
+          <Property Name="ACTIVITY_HIDE" Type="bit" Nullable="false" />
+          <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TORDER_ACTIVITY_BILLING">
+          <Key>
+            <PropertyRef Name="IDBILLING" />
+          </Key>
+          <Property Name="IDBILLING" Type="int" Nullable="false" />
+          <Property Name="IDBILLING_ACTIVITY" Type="int" Nullable="false" />
+          <Property Name="IDBILLING_STEP" Type="tinyint" />
+          <Property Name="IDBILLING_DATI_FATTURAZIONE" Type="int" />
+          <Property Name="BILLING_DESC" Type="nvarchar" MaxLength="100" />
+          <Property Name="IDBILLING_PERC" Type="tinyint" Nullable="false" />
+          <Property Name="BILLING_PERC" Type="float" />
+          <Property Name="BILLING_PRICE" Type="money" />
+          <Property Name="BILLING_LIMIT_DATE" Type="smalldatetime" />
+          <Property Name="BILLING_DATE" Type="smalldatetime" />
+          <Property Name="BILLING_END_DATE" Type="smalldatetime" />
+          <Property Name="BILLING_HIDE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TORDER_ACTIVITY_BILLING_STEP">
+          <Key>
+            <PropertyRef Name="IDSTEP" />
+          </Key>
+          <Property Name="IDSTEP" Type="tinyint" Nullable="false" />
+          <Property Name="IDSTEP_MODE" Type="tinyint" Nullable="false" />
+          <Property Name="STEP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="STEP_POS" Type="tinyint" />
+          <Property Name="STEP_HIDE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TREGISTRY_PROVINCE">
+          <Key>
+            <PropertyRef Name="IDPROVINCE" />
+          </Key>
+          <Property Name="IDPROVINCE" Type="int" Nullable="false" />
+          <Property Name="PROVINCE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PROVINCEACRONYM" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="PROVINCEHIDE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TREGISTRY_STATE">
+          <Key>
+            <PropertyRef Name="IDSTATE" />
+          </Key>
+          <Property Name="IDSTATE" Type="int" Nullable="false" />
+          <Property Name="STATE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="STATECODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="STATEHIDE" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY">
+          <End Role="TACTIVITY_TYPE_CATEGORY" Type="Self.TACTIVITY_TYPE_CATEGORY" Multiplicity="1" />
+          <End Role="TACTIVITY_TYPE" Type="Self.TACTIVITY_TYPE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TACTIVITY_TYPE_CATEGORY">
+              <PropertyRef Name="IDCATEGORY" />
+            </Principal>
+            <Dependent Role="TACTIVITY_TYPE">
+              <PropertyRef Name="IDTYPE_CATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT">
+          <End Role="TCLIENT" Type="Self.TCLIENT" Multiplicity="1" />
+          <End Role="TCLIENT_BILL_DETAIL" Type="Self.TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL">
+          <End Role="TCLIENT_BILL" Type="Self.TCLIENT_BILL" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TCLIENT_BILL_DETAIL" Type="Self.TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_BILL">
+              <PropertyRef Name="IDBILL" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_BILL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE">
+          <End Role="TCLIENT_DATI_FATTURAZIONE" Type="Self.TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Role="TCLIENT_BILL_DETAIL" Type="Self.TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_DOMAIN_SERVICE">
+          <End Role="TCLIENT_DOMAIN_SERVICE" Type="Self.TCLIENT_DOMAIN_SERVICE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TCLIENT_BILL_DETAIL" Type="Self.TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DOMAIN_SERVICE">
+              <PropertyRef Name="IDSERVICE" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_SERVICE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TORDER_ACTIVITY_BILLING">
+          <End Role="TORDER_ACTIVITY_BILLING" Type="Self.TORDER_ACTIVITY_BILLING" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TCLIENT_BILL_DETAIL" Type="Self.TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_ACTIVITY_BILLING" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_TCLIENT">
+          <End Role="TCLIENT" Type="Self.TCLIENT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TCLIENT_BILL" Type="Self.TCLIENT_BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL">
+              <PropertyRef Name="IDBILL_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE">
+          <End Role="TCLIENT_DATI_FATTURAZIONE" Type="Self.TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Role="TCLIENT_BILL" Type="Self.TCLIENT_BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL">
+              <PropertyRef Name="IDBILL_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT">
+          <End Role="TCLIENT" Type="Self.TCLIENT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TCLIENT_DATI_FATTURAZIONE" Type="Self.TCLIENT_DATI_FATTURAZIONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE">
+          <End Role="TCLIENT_DATI_FATTURAZIONE" Type="Self.TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Role="TCLIENT_DOMAIN_SERVICE" Type="Self.TCLIENT_DOMAIN_SERVICE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TCLIENT_DOMAIN_SERVICE">
+              <PropertyRef Name="IDSERVICE_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_TCLIENT">
+          <End Role="TCLIENT" Type="Self.TCLIENT" Multiplicity="1" />
+          <End Role="TCLIENT1" Type="Self.TCLIENT" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT1">
+              <PropertyRef Name="IDCLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_TREGISTRY_COUNTRY">
+          <End Role="TREGISTRY_PROVINCE" Type="Self.TREGISTRY_PROVINCE" Multiplicity="0..1" />
+          <End Role="TCLIENT" Type="Self.TCLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TREGISTRY_PROVINCE">
+              <PropertyRef Name="IDPROVINCE" />
+            </Principal>
+            <Dependent Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT_PROVINCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_TREGISTRY_STATE">
+          <End Role="TREGISTRY_STATE" Type="Self.TREGISTRY_STATE" Multiplicity="0..1" />
+          <End Role="TCLIENT" Type="Self.TCLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TREGISTRY_STATE">
+              <PropertyRef Name="IDSTATE" />
+            </Principal>
+            <Dependent Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT_STATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER">
+          <End Role="TCOURSE_MEMBER" Type="Self.TCOURSE_MEMBER" Multiplicity="1" />
+          <End Role="TCOURSE_EDITION_MEMBER" Type="Self.TCOURSE_EDITION_MEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCOURSE_MEMBER">
+              <PropertyRef Name="IDMEMBER" />
+            </Principal>
+            <Dependent Role="TCOURSE_EDITION_MEMBER">
+              <PropertyRef Name="IDMEMBER_LINK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP">
+          <End Role="TORDER_ACTIVITY_BILLING_STEP" Type="Self.TORDER_ACTIVITY_BILLING_STEP" Multiplicity="1" />
+          <End Role="TORDER_ACTIVITY_BILLING_STEP1" Type="Self.TORDER_ACTIVITY_BILLING_STEP" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY_BILLING_STEP">
+              <PropertyRef Name="IDSTEP" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING_STEP1">
+              <PropertyRef Name="IDSTEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE">
+          <End Role="TCLIENT_DATI_FATTURAZIONE" Type="Self.TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Role="TORDER_ACTIVITY_BILLING" Type="Self.TORDER_ACTIVITY_BILLING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_BILLING_TORDER_ACTIVITY">
+          <End Role="TORDER_ACTIVITY" Type="Self.TORDER_ACTIVITY" Multiplicity="1" />
+          <End Role="TORDER_ACTIVITY_BILLING" Type="Self.TORDER_ACTIVITY_BILLING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY">
+              <PropertyRef Name="IDACTIVITY" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING_ACTIVITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_BILLING_TORDER_ACTIVITY_BILLING_STEP">
+          <End Role="TORDER_ACTIVITY_BILLING_STEP" Type="Self.TORDER_ACTIVITY_BILLING_STEP" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TORDER_ACTIVITY_BILLING" Type="Self.TORDER_ACTIVITY_BILLING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY_BILLING_STEP">
+              <PropertyRef Name="IDSTEP" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING_STEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE">
+          <End Role="TACTIVITY_TYPE" Type="Self.TACTIVITY_TYPE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TORDER_ACTIVITY" Type="Self.TORDER_ACTIVITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TACTIVITY_TYPE">
+              <PropertyRef Name="IDTYPE" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY">
+              <PropertyRef Name="IDACTIVITY_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY">
+          <End Role="TACTIVITY_TYPE_CATEGORY" Type="Self.TACTIVITY_TYPE_CATEGORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TORDER_ACTIVITY" Type="Self.TORDER_ACTIVITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TACTIVITY_TYPE_CATEGORY">
+              <PropertyRef Name="IDCATEGORY" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY">
+              <PropertyRef Name="IDCATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="udfTCLIENT_BILL_YM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iCompany" Type="int" Mode="In" />
+          <Parameter Name="iClient" Type="int" Mode="In" />
+          <Parameter Name="IDBILL" Type="int" Mode="In" />
+          <Parameter Name="iMonth" Type="int" Mode="In" />
+          <Parameter Name="iYear" Type="int" Mode="In" />
+          <Parameter Name="iIva" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="COMPANY_SIGLA" Type="nvarchar" MaxLength="50" />
+                <Property Name="NAME" Type="nvarchar" MaxLength="200" Nullable="false" />
+                <Property Name="ADDRESS" Type="nvarchar" MaxLength="100" />
+                <Property Name="ZIPCODE" Type="nvarchar" MaxLength="11" />
+                <Property Name="LOCALITY" Type="nvarchar" MaxLength="100" />
+                <Property Name="PROVINCE" Type="nvarchar" MaxLength="5" Nullable="false" />
+                <Property Name="VATNUMBER" Type="nvarchar" MaxLength="16" />
+                <Property Name="FISCAL_CODE" Type="nvarchar" MaxLength="50" />
+                <Property Name="BILL_NUM" Type="int" />
+                <Property Name="BILL_DATE" Type="smalldatetime" Nullable="false" />
+                <Property Name="PAYMENT" Type="nvarchar" MaxLength="100" />
+                <Property Name="BANK" Type="nvarchar" MaxLength="50" />
+                <Property Name="COORDINATE" Type="nvarchar" MaxLength="27" />
+                <Property Name="DETAIL_PRICE" Type="float" />
+                <Property Name="DETAIL_NOTE" Type="nvarchar(max)" />
+                <Property Name="BILL_NOTE_PRINT" Type="nvarchar(max)" />
+                <Property Name="DETAIL" Type="nvarchar(max)" />
+                <Property Name="IDACTIVITY_TYPE" Type="smallint" />
+                <Property Name="SPESEINCASSO" Type="bit" />
+                <Property Name="SPESEINCASSOVAL" Type="money" />
+                <Property Name="VAT" Type="int" />
+                <Property Name="VATDESC" Type="nvarchar(max)" />
+                <Property Name="RIMBORSOKM" Type="bit" Nullable="false" />
+                <Property Name="VALORE_RIMBORSO" Type="float" />
+                <Property Name="DESCRIZIONE_RIMBORSO" Type="nvarchar(max)" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udfTcourseEditionBilling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BillingList" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IDCLIENT" Type="int" />
+                <Property Name="IDBILLING_MEMBER" Type="int" />
+                <Property Name="IDBILLING_EDITION" Type="int" Nullable="false" />
+                <Property Name="BILLING_NUM" Type="int" />
+                <Property Name="BILL_DATE" Type="nvarchar" MaxLength="30" />
+                <Property Name="BILLING_PRICE" Type="float" />
+                <Property Name="BILLING_VAT" Type="tinyint" />
+                <Property Name="EDITION_NUM" Type="smallint" />
+                <Property Name="COURSE" Type="nvarchar" MaxLength="500" Nullable="false" />
+                <Property Name="HOURNUMTOTAL" Type="smallint" />
+                <Property Name="MINDATE" Type="smalldatetime" />
+                <Property Name="MAXDATE" Type="smalldatetime" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="GESTISCOCONSULAREAModelStoreContainer">
+          <EntitySet Name="TACTIVITY_TYPE" EntityType="Self.TACTIVITY_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TACTIVITY_TYPE_CATEGORY" EntityType="Self.TACTIVITY_TYPE_CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT" EntityType="Self.TCLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_ACCOUNTING" EntityType="Self.TCLIENT_ACCOUNTING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_BILL" EntityType="Self.TCLIENT_BILL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_BILL_DETAIL" EntityType="Self.TCLIENT_BILL_DETAIL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_DATI_FATTURAZIONE" EntityType="Self.TCLIENT_DATI_FATTURAZIONE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_DOMAIN_SERVICE" EntityType="Self.TCLIENT_DOMAIN_SERVICE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_DOMAIN_SERVICE_PLANNING" EntityType="Self.TCLIENT_DOMAIN_SERVICE_PLANNING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCLIENT_DOMAIN_SERVICE_TYPE" EntityType="Self.TCLIENT_DOMAIN_SERVICE_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCOURSE_EDITION_MEMBER" EntityType="Self.TCOURSE_EDITION_MEMBER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TCOURSE_MEMBER" EntityType="Self.TCOURSE_MEMBER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TORDER_ACTIVITY" EntityType="Self.TORDER_ACTIVITY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TORDER_ACTIVITY_BILLING" EntityType="Self.TORDER_ACTIVITY_BILLING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TORDER_ACTIVITY_BILLING_STEP" EntityType="Self.TORDER_ACTIVITY_BILLING_STEP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TREGISTRY_PROVINCE" EntityType="Self.TREGISTRY_PROVINCE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TREGISTRY_STATE" EntityType="Self.TREGISTRY_STATE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY" Association="Self.FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY">
+            <End Role="TACTIVITY_TYPE_CATEGORY" EntitySet="TACTIVITY_TYPE_CATEGORY" />
+            <End Role="TACTIVITY_TYPE" EntitySet="TACTIVITY_TYPE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT" Association="Self.FK_TCLIENT_BILL_DETAIL_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL" Association="Self.FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL">
+            <End Role="TCLIENT_BILL" EntitySet="TCLIENT_BILL" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE" Association="Self.FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_DOMAIN_SERVICE" Association="Self.FK_TCLIENT_BILL_DETAIL_TCLIENT_DOMAIN_SERVICE">
+            <End Role="TCLIENT_DOMAIN_SERVICE" EntitySet="TCLIENT_DOMAIN_SERVICE" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TORDER_ACTIVITY_BILLING" Association="Self.FK_TCLIENT_BILL_DETAIL_TORDER_ACTIVITY_BILLING">
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_TCLIENT" Association="Self.FK_TCLIENT_BILL_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT_BILL" EntitySet="TCLIENT_BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE" Association="Self.FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TCLIENT_BILL" EntitySet="TCLIENT_BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT" Association="Self.FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE" Association="Self.FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TCLIENT_DOMAIN_SERVICE" EntitySet="TCLIENT_DOMAIN_SERVICE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_TCLIENT" Association="Self.FK_TCLIENT_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT1" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_TREGISTRY_COUNTRY" Association="Self.FK_TCLIENT_TREGISTRY_COUNTRY">
+            <End Role="TREGISTRY_PROVINCE" EntitySet="TREGISTRY_PROVINCE" />
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_TREGISTRY_STATE" Association="Self.FK_TCLIENT_TREGISTRY_STATE">
+            <End Role="TREGISTRY_STATE" EntitySet="TREGISTRY_STATE" />
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER" Association="Self.FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER">
+            <End Role="TCOURSE_MEMBER" EntitySet="TCOURSE_MEMBER" />
+            <End Role="TCOURSE_EDITION_MEMBER" EntitySet="TCOURSE_EDITION_MEMBER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP" Association="Self.FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP">
+            <End Role="TORDER_ACTIVITY_BILLING_STEP" EntitySet="TORDER_ACTIVITY_BILLING_STEP" />
+            <End Role="TORDER_ACTIVITY_BILLING_STEP1" EntitySet="TORDER_ACTIVITY_BILLING_STEP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE" Association="Self.FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_BILLING_TORDER_ACTIVITY" Association="Self.FK_TORDER_ACTIVITY_BILLING_TORDER_ACTIVITY">
+            <End Role="TORDER_ACTIVITY" EntitySet="TORDER_ACTIVITY" />
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_BILLING_TORDER_ACTIVITY_BILLING_STEP" Association="Self.FK_TORDER_ACTIVITY_BILLING_TORDER_ACTIVITY_BILLING_STEP">
+            <End Role="TORDER_ACTIVITY_BILLING_STEP" EntitySet="TORDER_ACTIVITY_BILLING_STEP" />
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE" Association="Self.FK_TORDER_ACTIVITY_TACTIVITY_TYPE">
+            <End Role="TACTIVITY_TYPE" EntitySet="TACTIVITY_TYPE" />
+            <End Role="TORDER_ACTIVITY" EntitySet="TORDER_ACTIVITY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY" Association="Self.FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY">
+            <End Role="TACTIVITY_TYPE_CATEGORY" EntitySet="TACTIVITY_TYPE_CATEGORY" />
+            <End Role="TORDER_ACTIVITY" EntitySet="TORDER_ACTIVITY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GESTISCO.CONSULAREAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TACTIVITY_TYPE">
+          <Key>
+            <PropertyRef Name="IDTYPE" />
+          </Key>
+          <Property Name="IDTYPE" Type="Int16" Nullable="false" />
+          <Property Name="IDTYPE_CATEGORY" Type="Byte" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE_POS" Type="Byte" />
+          <Property Name="TYPE_HIDE" Type="Boolean" Nullable="false" />
+          <Property Name="CREATEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MODIFYDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TACTIVITY_TYPE_CATEGORY" Relationship="GESTISCO.CONSULAREAModel.FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY" FromRole="TACTIVITY_TYPE" ToRole="TACTIVITY_TYPE_CATEGORY" />
+          <NavigationProperty Name="TORDER_ACTIVITY" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE" FromRole="TACTIVITY_TYPE" ToRole="TORDER_ACTIVITY" />
+        </EntityType>
+        <EntityType Name="TACTIVITY_TYPE_CATEGORY">
+          <Key>
+            <PropertyRef Name="IDCATEGORY" />
+          </Key>
+          <Property Name="IDCATEGORY" Type="Byte" Nullable="false" />
+          <Property Name="IDCATEGORY_COMPANY" Type="Int32" Nullable="false" />
+          <Property Name="CATEGORY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COLOR" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="CATEGORY_HIDE" Type="Boolean" Nullable="false" />
+          <Property Name="CREATEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MODIFYDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CATEGORY_POS" Type="Byte" />
+          <NavigationProperty Name="TACTIVITY_TYPE" Relationship="GESTISCO.CONSULAREAModel.FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY" FromRole="TACTIVITY_TYPE_CATEGORY" ToRole="TACTIVITY_TYPE" />
+          <NavigationProperty Name="TORDER_ACTIVITY" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY" FromRole="TACTIVITY_TYPE_CATEGORY" ToRole="TORDER_ACTIVITY" />
+        </EntityType>
+        <EntityType Name="TCLIENT">
+          <Key>
+            <PropertyRef Name="IDCLIENT" />
+          </Key>
+          <Property Name="IDCLIENT" Type="Int32" Nullable="false" />
+          <Property Name="IDCLIENT_CORPORATE" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ALIAS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LOCALITY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IDCLIENT_PROVINCE" Type="Int32" />
+          <Property Name="IDCLIENT_STATE" Type="Int32" />
+          <Property Name="VATNUMBER" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="FISCAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL3" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="WEB" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PRIVACY" Type="Boolean" />
+          <Property Name="NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDCLIENT_ACTIVITY" Type="Int32" />
+          <Property Name="IDCLIENT_SECTOR" Type="Int32" />
+          <Property Name="ACTIVITYNOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDCLIENT_EMPLOYEE" Type="Int32" />
+          <Property Name="IDCLIENT_COMPETITOR" Type="Int32" />
+          <Property Name="IDCLIENT_BUDGET" Type="Int32" />
+          <Property Name="IDCLIENT_TURNOVER" Type="Int32" />
+          <Property Name="GROUPNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CLIENT_NEWSLETTER" Type="Boolean" Nullable="false" />
+          <Property Name="MACRODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDCLIENT_FONDO" Type="Int16" />
+          <Property Name="CODICEFATTURAZIONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TREGISTRY_PROVINCE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_COUNTRY" FromRole="TCLIENT" ToRole="TREGISTRY_PROVINCE" />
+          <NavigationProperty Name="TREGISTRY_STATE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_STATE" FromRole="TCLIENT" ToRole="TREGISTRY_STATE" />
+          <NavigationProperty Name="TCLIENT_ACCOUNTING" Relationship="GESTISCO.CONSULAREAModel.TCLIENTTCLIENT_ACCOUNTING" FromRole="TCLIENT" ToRole="TCLIENT_ACCOUNTING" />
+          <NavigationProperty Name="TCLIENT1" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TCLIENT" FromRole="TCLIENT" ToRole="TCLIENT1" />
+          <NavigationProperty Name="TCLIENT2" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TCLIENT" FromRole="TCLIENT1" ToRole="TCLIENT" />
+          <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT" FromRole="TCLIENT" ToRole="TCLIENT_DATI_FATTURAZIONE" />
+          <NavigationProperty Name="TCLIENT_BILL_DETAIL" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT" FromRole="TCLIENT" ToRole="TCLIENT_BILL_DETAIL" />
+        </EntityType>
+        <EntityContainer Name="EntitiesGestisco" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TACTIVITY_TYPE" EntityType="Self.TACTIVITY_TYPE" />
+          <EntitySet Name="TACTIVITY_TYPE_CATEGORY" EntityType="Self.TACTIVITY_TYPE_CATEGORY" />
+          <EntitySet Name="TCLIENT" EntityType="Self.TCLIENT" />
+          <EntitySet Name="TREGISTRY_PROVINCE" EntityType="GESTISCO.CONSULAREAModel.TREGISTRY_PROVINCE" />
+          <AssociationSet Name="FK_TCLIENT_TREGISTRY_COUNTRY" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_COUNTRY">
+            <End Role="TREGISTRY_PROVINCE" EntitySet="TREGISTRY_PROVINCE" />
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <EntitySet Name="TREGISTRY_STATE" EntityType="GESTISCO.CONSULAREAModel.TREGISTRY_STATE" />
+          <AssociationSet Name="FK_TCLIENT_TREGISTRY_STATE" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_STATE">
+            <End Role="TREGISTRY_STATE" EntitySet="TREGISTRY_STATE" />
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <EntitySet Name="TCLIENT_BILL" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_BILL" />
+          <EntitySet Name="TCLIENT_BILL_DETAIL" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" />
+          <EntitySet Name="TORDER_ACTIVITY" EntityType="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY" />
+          <EntitySet Name="TORDER_ACTIVITY_BILLING" EntityType="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING" />
+          <EntitySet Name="TORDER_ACTIVITY_BILLING_STEP" EntityType="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING_STEP" />
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL">
+            <End Role="TCLIENT_BILL" EntitySet="TCLIENT_BILL" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP" Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP">
+            <End Role="TORDER_ACTIVITY_BILLING_STEP" EntitySet="TORDER_ACTIVITY_BILLING_STEP" />
+            <End Role="TORDER_ACTIVITY_BILLING_STEP1" EntitySet="TORDER_ACTIVITY_BILLING_STEP" />
+          </AssociationSet>
+          <AssociationSet Name="TCLIENT_BILL_DETAILTORDER_ACTIVITY_BILLING" Association="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAILTORDER_ACTIVITY_BILLING">
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+          </AssociationSet>
+          <AssociationSet Name="TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY" Association="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY">
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+            <End Role="TORDER_ACTIVITY" EntitySet="TORDER_ACTIVITY" />
+          </AssociationSet>
+          <AssociationSet Name="TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY_BILLING_STEP" Association="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY_BILLING_STEP">
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+            <End Role="TORDER_ACTIVITY_BILLING_STEP" EntitySet="TORDER_ACTIVITY_BILLING_STEP" />
+          </AssociationSet>
+          <EntitySet Name="TCLIENT_DOMAIN_SERVICE" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE" />
+          <EntitySet Name="TCLIENT_DOMAIN_SERVICE_PLANNING" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_PLANNING" />
+          <EntitySet Name="TCLIENT_DOMAIN_SERVICE_TYPE" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPE" />
+          <AssociationSet Name="TCLIENT_DOMAIN_SERVICETCLIENT_BILL_DETAIL" Association="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICETCLIENT_BILL_DETAIL">
+            <End Role="TCLIENT_DOMAIN_SERVICE" EntitySet="TCLIENT_DOMAIN_SERVICE" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="TCLIENT_BILLTCLIENT" Association="GESTISCO.CONSULAREAModel.TCLIENT_BILLTCLIENT">
+            <End Role="TCLIENT_BILL" EntitySet="TCLIENT_BILL" />
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="TCLIENT_DOMAIN_SERVICE_TYPETCLIENT_DOMAIN_SERVICE" Association="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPETCLIENT_DOMAIN_SERVICE">
+            <End Role="TCLIENT_DOMAIN_SERVICE_TYPE" EntitySet="TCLIENT_DOMAIN_SERVICE_TYPE" />
+            <End Role="TCLIENT_DOMAIN_SERVICE" EntitySet="TCLIENT_DOMAIN_SERVICE" />
+          </AssociationSet>
+          <FunctionImport Name="udfTCLIENT_BILL_YM" IsComposable="true" ReturnType="Collection(GESTISCO.CONSULAREAModel.udfTCLIENT_BILL_YM_Result)">
+            <Parameter Name="iCompany" Mode="In" Type="Int32" />
+            <Parameter Name="iClient" Mode="In" Type="Int32" />
+            <Parameter Name="IDBILL" Mode="In" Type="Int32" />
+            <Parameter Name="iMonth" Mode="In" Type="Int32" />
+            <Parameter Name="iYear" Mode="In" Type="Int32" />
+            <Parameter Name="iIva" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="TCLIENT_ACCOUNTING" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_ACCOUNTING" />
+          <EntitySet Name="TCOURSE_EDITION_MEMBER" EntityType="GESTISCO.CONSULAREAModel.TCOURSE_EDITION_MEMBER" />
+          <EntitySet Name="TCOURSE_MEMBER" EntityType="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER" />
+          <AssociationSet Name="FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER" Association="GESTISCO.CONSULAREAModel.FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER">
+            <End Role="TCOURSE_MEMBER" EntitySet="TCOURSE_MEMBER" />
+            <End Role="TCOURSE_EDITION_MEMBER" EntitySet="TCOURSE_EDITION_MEMBER" />
+          </AssociationSet>
+          <FunctionImport Name="udfTcourseEditionBilling" IsComposable="true" ReturnType="Collection(GESTISCO.CONSULAREAModel.udfTcourseEditionBilling_Result)">
+          <Parameter Name="BillingList" Mode="In" Type="String" />
+          </FunctionImport>
+          <AssociationSet Name="TCOURSE_MEMBERTREGISTRY_PROVINCE" Association="GESTISCO.CONSULAREAModel.TCOURSE_MEMBERTREGISTRY_PROVINCE">
+            <End Role="TCOURSE_MEMBER" EntitySet="TCOURSE_MEMBER" />
+            <End Role="TREGISTRY_PROVINCE" EntitySet="TREGISTRY_PROVINCE" />
+          </AssociationSet>
+          <AssociationSet Name="TCLIENTTCLIENT_ACCOUNTING" Association="GESTISCO.CONSULAREAModel.TCLIENTTCLIENT_ACCOUNTING">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT_ACCOUNTING" EntitySet="TCLIENT_ACCOUNTING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_TCLIENT" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT1" EntitySet="TCLIENT" />
+          </AssociationSet>
+          <EntitySet Name="TCLIENT_DATI_FATTURAZIONE" EntityType="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" />
+          <AssociationSet Name="FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TCLIENT_DOMAIN_SERVICE" EntitySet="TCLIENT_DOMAIN_SERVICE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE" Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TORDER_ACTIVITY_BILLING" EntitySet="TORDER_ACTIVITY_BILLING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY" Association="GESTISCO.CONSULAREAModel.FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY">
+            <End Role="TACTIVITY_TYPE_CATEGORY" EntitySet="TACTIVITY_TYPE_CATEGORY" />
+            <End Role="TACTIVITY_TYPE" EntitySet="TACTIVITY_TYPE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE" Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE">
+            <End Role="TACTIVITY_TYPE" EntitySet="TACTIVITY_TYPE" />
+            <End Role="TORDER_ACTIVITY" EntitySet="TORDER_ACTIVITY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY" Association="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY">
+            <End Role="TACTIVITY_TYPE_CATEGORY" EntitySet="TACTIVITY_TYPE_CATEGORY" />
+            <End Role="TORDER_ACTIVITY" EntitySet="TORDER_ACTIVITY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT">
+            <End Role="TCLIENT" EntitySet="TCLIENT" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TCLIENT_BILL" EntitySet="TCLIENT_BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE" Association="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE">
+            <End Role="TCLIENT_DATI_FATTURAZIONE" EntitySet="TCLIENT_DATI_FATTURAZIONE" />
+            <End Role="TCLIENT_BILL_DETAIL" EntitySet="TCLIENT_BILL_DETAIL" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TREGISTRY_PROVINCE">
+          <Key>
+            <PropertyRef Name="IDPROVINCE" />
+          </Key>
+          <Property Name="IDPROVINCE" Type="Int32" Nullable="false" />
+          <Property Name="PROVINCE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCEACRONYM" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCEHIDE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TCLIENT" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_COUNTRY" FromRole="TREGISTRY_PROVINCE" ToRole="TCLIENT" />
+        </EntityType>
+        <Association Name="FK_TCLIENT_TREGISTRY_COUNTRY">
+          <End Type="GESTISCO.CONSULAREAModel.TREGISTRY_PROVINCE" Role="TREGISTRY_PROVINCE" Multiplicity="0..1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TREGISTRY_PROVINCE">
+              <PropertyRef Name="IDPROVINCE" />
+            </Principal>
+            <Dependent Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT_PROVINCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TREGISTRY_STATE">
+          <Key>
+            <PropertyRef Name="IDSTATE" />
+          </Key>
+          <Property Name="IDSTATE" Type="Int32" Nullable="false" />
+          <Property Name="STATE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="STATECODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="STATEHIDE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TCLIENT" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TREGISTRY_STATE" FromRole="TREGISTRY_STATE" ToRole="TCLIENT" />
+        </EntityType>
+        <Association Name="FK_TCLIENT_TREGISTRY_STATE">
+          <End Type="GESTISCO.CONSULAREAModel.TREGISTRY_STATE" Role="TREGISTRY_STATE" Multiplicity="0..1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TREGISTRY_STATE">
+              <PropertyRef Name="IDSTATE" />
+            </Principal>
+            <Dependent Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT_STATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TCLIENT_BILL">
+          <Key>
+            <PropertyRef Name="IDBILL" />
+          </Key>
+          <Property Name="IDBILL" Type="Int32" Nullable="false" />
+          <Property Name="IDBILL_COMPANY" Type="Int32" Nullable="false" />
+          <Property Name="IDBILL_CLIENT" Type="Int32" Nullable="false" />
+          <Property Name="IDBILL_YEAR" Type="Int16" Nullable="false" />
+          <Property Name="IDBILL_MONTH" Type="Int16" Nullable="false" />
+          <Property Name="BILL_NUM" Type="Int32" />
+          <Property Name="BILL_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BILL_IMPORT" Type="Double" Nullable="false" />
+          <Property Name="BILL_NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BILL_NOTE_PRINT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BILL_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="BILL_RECEIVED" Type="Boolean" Nullable="false" />
+          <Property Name="BILL_IMPORT_RECEIVED" Type="Double" />
+          <Property Name="MACRODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TCLIENT_BILL_DETAIL" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL" FromRole="TCLIENT_BILL" ToRole="TCLIENT_BILL_DETAIL" />
+          <NavigationProperty Name="TCLIENT" Relationship="GESTISCO.CONSULAREAModel.TCLIENT_BILLTCLIENT" FromRole="TCLIENT_BILL" ToRole="TCLIENT" />
+          <Property Name="IDBILL_DATI_FATTURAZIONE" Type="Int32" />
+          <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_BILL" ToRole="TCLIENT_DATI_FATTURAZIONE" />
+        </EntityType>
+        <EntityType Name="TCLIENT_BILL_DETAIL">
+          <Key>
+            <PropertyRef Name="IDDETAIL" />
+          </Key>
+          <Property Name="IDDETAIL" Type="Int32" Nullable="false" />
+          <Property Name="IDDETAIL_BILL" Type="Int32" Nullable="false" />
+          <Property Name="IDDETAIL_COMPANY" Type="Int32" Nullable="false" />
+          <Property Name="IDDETAIL_CLIENT" Type="Int32" Nullable="false" />
+          <Property Name="IDDETAIL_YEAR" Type="Int16" Nullable="false" />
+          <Property Name="IDDETAIL_MONTH" Type="Int16" Nullable="false" />
+          <Property Name="IDDETAIL_SERVICE" Type="Int32" />
+          <Property Name="IDDETAIL_ACTIVITY_BILLING" Type="Int32" />
+          <Property Name="DETAIL_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DETAIL_PRICE" Type="Double" />
+          <Property Name="DETAIL_NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MACRODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ACTIVITY_BILLING" Relationship="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAILTORDER_ACTIVITY_BILLING" FromRole="TCLIENT_BILL_DETAIL" ToRole="TORDER_ACTIVITY_BILLING" />
+          <NavigationProperty Name="DOMAIN_SERVICE" Relationship="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICETCLIENT_BILL_DETAIL" FromRole="TCLIENT_BILL_DETAIL" ToRole="TCLIENT_DOMAIN_SERVICE" />
+          <Property Name="IDDETAIL_DATI_FATTURAZIONE" Type="Int32" />
+          <NavigationProperty Name="TCLIENT" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT" FromRole="TCLIENT_BILL_DETAIL" ToRole="TCLIENT" />
+          <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_BILL_DETAIL" ToRole="TCLIENT_DATI_FATTURAZIONE" />
+        </EntityType>
+        <EntityType Name="TORDER_ACTIVITY">
+          <Key>
+            <PropertyRef Name="IDACTIVITY" />
+          </Key>
+          <Property Name="IDACTIVITY" Type="Int32" Nullable="false" />
+          <Property Name="IDACTIVITY_ORDER" Type="Int32" />
+          <Property Name="IDACTIVITY_OFFER_ACTIVITY" Type="Int32" />
+          <Property Name="IDCATEGORY" Type="Byte" Nullable="false" />
+          <Property Name="CATEGORY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDACTIVITY_TYPE" Type="Int16" Nullable="false" />
+          <Property Name="ACTIVITY_TYPE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVITY_NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDUSER_REG" Type="Int32" />
+          <Property Name="REGDATE" Type="DateTime" Precision="0" />
+          <Property Name="STARTDATE" Type="DateTime" Precision="0" />
+          <Property Name="IDUSER_RESP" Type="Int32" />
+          <Property Name="EXPIRYDATE" Type="DateTime" Precision="0" />
+          <Property Name="ENDDATE" Type="DateTime" Precision="0" />
+          <Property Name="HOUR" Type="Double" />
+          <Property Name="SPRICE" Type="Double" />
+          <Property Name="IDACTIVITY_MODE" Type="Byte" Nullable="false" />
+          <Property Name="IDACTIVITY_STATUS" Type="Byte" Nullable="false" />
+          <Property Name="IDACTIVITY_PROGRESS" Type="Byte" Nullable="false" />
+          <Property Name="WORKUSERS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MONITORING" Type="Boolean" Nullable="false" />
+          <Property Name="RIMBUSER" Type="Double" />
+          <Property Name="IMPORTUSER" Type="Double" />
+          <Property Name="ACTIVITY_HIDE" Type="Boolean" Nullable="false" />
+          <Property Name="MACRODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TACTIVITY_TYPE" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE" FromRole="TORDER_ACTIVITY" ToRole="TACTIVITY_TYPE" />
+          <NavigationProperty Name="TACTIVITY_TYPE_CATEGORY" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY" FromRole="TORDER_ACTIVITY" ToRole="TACTIVITY_TYPE_CATEGORY" />
+        </EntityType>
+        <EntityType Name="TORDER_ACTIVITY_BILLING">
+          <Key>
+            <PropertyRef Name="IDBILLING" />
+          </Key>
+          <Property Name="IDBILLING" Type="Int32" Nullable="false" />
+          <Property Name="IDBILLING_ACTIVITY" Type="Int32" Nullable="false" />
+          <Property Name="IDBILLING_STEP" Type="Byte" />
+          <Property Name="BILLING_DESC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IDBILLING_PERC" Type="Byte" Nullable="false" />
+          <Property Name="BILLING_PERC" Type="Double" />
+          <Property Name="BILLING_PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BILLING_LIMIT_DATE" Type="DateTime" Precision="0" />
+          <Property Name="BILLING_DATE" Type="DateTime" Precision="0" />
+          <Property Name="BILLING_END_DATE" Type="DateTime" Precision="0" />
+          <Property Name="BILLING_HIDE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ACTIVITY" Relationship="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY" FromRole="TORDER_ACTIVITY_BILLING" ToRole="TORDER_ACTIVITY" />
+          <NavigationProperty Name="ACTIVITY_BILLING_STEP" Relationship="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY_BILLING_STEP" FromRole="TORDER_ACTIVITY_BILLING" ToRole="TORDER_ACTIVITY_BILLING_STEP" />
+          <Property Name="IDBILLING_DATI_FATTURAZIONE" Type="Int32" />
+          <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE" FromRole="TORDER_ACTIVITY_BILLING" ToRole="TCLIENT_DATI_FATTURAZIONE" />
+        </EntityType>
+        <EntityType Name="TORDER_ACTIVITY_BILLING_STEP">
+          <Key>
+            <PropertyRef Name="IDSTEP" />
+          </Key>
+          <Property Name="IDSTEP" Type="Byte" Nullable="false" />
+          <Property Name="IDSTEP_MODE" Type="Byte" Nullable="false" />
+          <Property Name="STEP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="STEP_POS" Type="Byte" />
+          <Property Name="STEP_HIDE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TORDER_ACTIVITY_BILLING_STEP1" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP" FromRole="TORDER_ACTIVITY_BILLING_STEP" ToRole="TORDER_ACTIVITY_BILLING_STEP1" />
+          <NavigationProperty Name="TORDER_ACTIVITY_BILLING_STEP2" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP" FromRole="TORDER_ACTIVITY_BILLING_STEP1" ToRole="TORDER_ACTIVITY_BILLING_STEP" />
+        </EntityType>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_BILL">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL" Role="TCLIENT_BILL" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" Role="TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_BILL">
+              <PropertyRef Name="IDBILL" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_BILL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_BILLING_STEP_TORDER_ACTIVITY_BILLING_STEP">
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING_STEP" Role="TORDER_ACTIVITY_BILLING_STEP" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING_STEP" Role="TORDER_ACTIVITY_BILLING_STEP1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY_BILLING_STEP">
+              <PropertyRef Name="IDSTEP" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING_STEP1">
+              <PropertyRef Name="IDSTEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TCLIENT_BILL_DETAILTORDER_ACTIVITY_BILLING">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" Role="TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING" Role="TORDER_ACTIVITY_BILLING" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_ACTIVITY_BILLING" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY">
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING" Role="TORDER_ACTIVITY_BILLING" Multiplicity="*" />
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY" Role="TORDER_ACTIVITY" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY">
+              <PropertyRef Name="IDACTIVITY" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING_ACTIVITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TORDER_ACTIVITY_BILLINGTORDER_ACTIVITY_BILLING_STEP">
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING" Role="TORDER_ACTIVITY_BILLING" Multiplicity="*" />
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING_STEP" Role="TORDER_ACTIVITY_BILLING_STEP" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TORDER_ACTIVITY_BILLING_STEP">
+              <PropertyRef Name="IDSTEP" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING_STEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TCLIENT_DOMAIN_SERVICE">
+          <Key>
+            <PropertyRef Name="IDSERVICE" />
+          </Key>
+          <Property Name="IDSERVICE" Type="Int32" Nullable="false" />
+          <Property Name="IDSERVICE_DOMAIN" Type="Int32" Nullable="false" />
+          <Property Name="IDSERVICE_TYPE" Type="Byte" Nullable="false" />
+          <Property Name="IDSERVICE_SERVER" Type="Byte" />
+          <Property Name="IDSERVICE_PLANNING" Type="Byte" />
+          <Property Name="ACTIVATIONDATE" Type="DateTime" Precision="0" />
+          <Property Name="BILLDATE" Type="DateTime" Precision="0" />
+          <Property Name="ENDBILLDATE" Type="DateTime" Precision="0" />
+          <Property Name="SERVICE_COST" Type="Double" />
+          <Property Name="SERVICE_PRICE" Type="Double" />
+          <Property Name="SERVICE_NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SERVICE_HIDE" Type="Boolean" Nullable="false" />
+          <Property Name="MACRODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="DOMAIN_SERVICE_TYPE" Relationship="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPETCLIENT_DOMAIN_SERVICE" FromRole="TCLIENT_DOMAIN_SERVICE" ToRole="TCLIENT_DOMAIN_SERVICE_TYPE" />
+          <Property Name="IDSERVICE_DATI_FATTURAZIONE" Type="Int32" />
+          <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_DOMAIN_SERVICE" ToRole="TCLIENT_DATI_FATTURAZIONE" />
+        </EntityType>
+        <EntityType Name="TCLIENT_DOMAIN_SERVICE_PLANNING">
+          <Key>
+            <PropertyRef Name="IDPLANNING" />
+          </Key>
+          <Property Name="IDPLANNING" Type="Byte" Nullable="false" />
+          <Property Name="PLANNING" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PLANNING_VALUE" Type="Byte" Nullable="false" />
+          <Property Name="PLANNING_HIDE" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCLIENT_DOMAIN_SERVICE_TYPE">
+          <Key>
+            <PropertyRef Name="IDTYPE" />
+          </Key>
+          <Property Name="IDTYPE" Type="Byte" Nullable="false" />
+          <Property Name="TYPE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TYPE_POS" Type="Int16" Nullable="false" />
+          <Property Name="TYPE_HIDE" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="TCLIENT_DOMAIN_SERVICETCLIENT_BILL_DETAIL">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE" Role="TCLIENT_DOMAIN_SERVICE" Multiplicity="0..1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" Role="TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DOMAIN_SERVICE">
+              <PropertyRef Name="IDSERVICE" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_SERVICE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TCLIENT_BILLTCLIENT">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL" Role="TCLIENT_BILL" Multiplicity="*" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL">
+              <PropertyRef Name="IDBILL_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TCLIENT_DOMAIN_SERVICE_TYPETCLIENT_DOMAIN_SERVICE">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPE" Role="TCLIENT_DOMAIN_SERVICE_TYPE" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE" Role="TCLIENT_DOMAIN_SERVICE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DOMAIN_SERVICE_TYPE">
+              <PropertyRef Name="IDTYPE" />
+            </Principal>
+            <Dependent Role="TCLIENT_DOMAIN_SERVICE">
+              <PropertyRef Name="IDSERVICE_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="udfTCLIENT_BILL_YM_Result">
+          <Property Type="String" Name="COMPANY_SIGLA" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NAME" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ADDRESS" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ZIPCODE" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="LOCALITY" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PROVINCE" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="VATNUMBER" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="FISCAL_CODE" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="BILL_NUM" Nullable="true" />
+          <Property Type="DateTime" Name="BILL_DATE" Nullable="false" Precision="16" />
+          <Property Type="String" Name="PAYMENT" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BANK" Nullable="true" MaxLength="63" />
+          <Property Type="String" Name="COORDINATE" Nullable="true" MaxLength="27" />
+          <Property Type="Double" Name="DETAIL_PRICE" Nullable="true" />
+          <Property Type="String" Name="DETAIL_NOTE" Nullable="true" />
+          <Property Type="String" Name="BILL_NOTE_PRINT" Nullable="true" />
+          <Property Type="String" Name="DETAIL" Nullable="true" />
+          <Property Type="Int32" Name="IDACTIVITY_TYPE" Nullable="true" />
+          <Property Type="Boolean" Name="SPESEINCASSO" Nullable="true" />
+          <Property Type="Decimal" Name="SPESEINCASSOVAL" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="VAT" Nullable="true" />
+          <Property Type="String" Name="VATDESC" Nullable="true" />
+          <Property Type="Boolean" Name="RIMBORSOKM" Nullable="false" />
+          <Property Type="Double" Name="VALORE_RIMBORSO" Nullable="true" />
+          <Property Type="String" Name="DESCRIZIONE_RIMBORSO" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="TCLIENT_ACCOUNTING">
+          <Key>
+            <PropertyRef Name="IDACCOUNTING_CLIENT" />
+            <PropertyRef Name="IDACCOUNTING_COMPANY" />
+          </Key>
+          <Property Name="IDACCOUNTING_CLIENT" Type="Int32" Nullable="false" />
+          <Property Name="IDACCOUNTING_COMPANY" Type="Int32" Nullable="false" />
+          <Property Name="BANK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BANK_SEAT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="27" FixedLength="false" Unicode="true" />
+          <Property Name="PAYMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ABI" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CAB" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ISTATCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BOOKCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BILLNOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SPESEINCASSO" Type="Boolean" Nullable="false" />
+          <Property Name="SPESEINCASSOVAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ESENZIONEIVA" Type="Boolean" Nullable="false" />
+          <Property Name="ESENZIONEIVADESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RIMBORSOKM" Type="Boolean" Nullable="false" />
+          <Property Name="RIMBORSOKMVAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RIMBORSOFORFAIT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CREATEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MODIFYDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SPLIT_PAYMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LETTERA_DINTENTI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TCOURSE_EDITION_MEMBER">
+          <Key>
+            <PropertyRef Name="IDEDITION_LINK" />
+            <PropertyRef Name="IDMEMBER_LINK" />
+          </Key>
+          <Property Name="IDEDITION_LINK" Type="Int32" Nullable="false" />
+          <Property Name="IDMEMBER_LINK" Type="Int32" Nullable="false" />
+          <Property Name="HOURNUM" Type="Byte" />
+          <Property Name="PERC" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ATTESTATO" Type="Boolean" Nullable="false" />
+          <Property Name="ATTESTATONUM" Type="Int16" />
+          <Property Name="CREATEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="QUOTAPERS" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MODIFYDATE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TCOURSE_MEMBER" Relationship="GESTISCO.CONSULAREAModel.FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER" FromRole="TCOURSE_EDITION_MEMBER" ToRole="TCOURSE_MEMBER" />
+        </EntityType>
+        <EntityType Name="TCOURSE_MEMBER">
+          <Key>
+            <PropertyRef Name="IDMEMBER" />
+          </Key>
+          <Property Name="IDMEMBER" Type="Int32" Nullable="false" />
+          <Property Name="IDMEMBER_CORPORATE" Type="Int32" Nullable="false" />
+          <Property Name="IDMEMBER_CLIENT" Type="Int32" />
+          <Property Name="IDMEMBER_GROUP" Type="Int32" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BIRTHDATE" Type="DateTime" Precision="0" />
+          <Property Name="BIRTHPLACE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LOCALITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDMEMBER_PROVINCE" Type="Int32" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FISCALCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PAYMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BANK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="27" FixedLength="false" Unicode="true" />
+          <Property Name="MANSIONE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MEMBERHIDE" Type="Boolean" Nullable="false" />
+          <Property Name="CREATEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MODIFYDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TCOURSE_EDITION_MEMBER" Relationship="GESTISCO.CONSULAREAModel.FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER" FromRole="TCOURSE_MEMBER" ToRole="TCOURSE_EDITION_MEMBER" />
+          <NavigationProperty Name="TREGISTRY_PROVINCE" Relationship="GESTISCO.CONSULAREAModel.TCOURSE_MEMBERTREGISTRY_PROVINCE" FromRole="TCOURSE_MEMBER" ToRole="TREGISTRY_PROVINCE" />
+        </EntityType>
+        <Association Name="FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER">
+          <End Type="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER" Role="TCOURSE_MEMBER" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCOURSE_EDITION_MEMBER" Role="TCOURSE_EDITION_MEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCOURSE_MEMBER">
+              <PropertyRef Name="IDMEMBER" />
+            </Principal>
+            <Dependent Role="TCOURSE_EDITION_MEMBER">
+              <PropertyRef Name="IDMEMBER_LINK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="udfTcourseEditionBilling_Result">
+          <Property Type="Int32" Name="IDCLIENT" Nullable="true" />
+          <Property Type="Int32" Name="IDBILLING_MEMBER" Nullable="true" />
+          <Property Type="Int32" Name="IDBILLING_EDITION" Nullable="false" />
+          <Property Type="Int32" Name="BILLING_NUM" Nullable="true" />
+          <Property Type="String" Name="BILL_DATE" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="BILLING_PRICE" Nullable="true" />
+          <Property Type="Byte" Name="BILLING_VAT" Nullable="true" />
+          <Property Type="Int16" Name="EDITION_NUM" Nullable="true" />
+          <Property Type="String" Name="COURSE" Nullable="false" MaxLength="500" />
+          <Property Type="Int16" Name="HOURNUMTOTAL" Nullable="true" />
+          <Property Type="DateTime" Name="MINDATE" Nullable="true" Precision="16" />
+          <Property Type="DateTime" Name="MAXDATE" Nullable="true" Precision="16" />
+        </ComplexType>
+        <Association Name="TCOURSE_MEMBERTREGISTRY_PROVINCE">
+          <End Type="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER" Role="TCOURSE_MEMBER" Multiplicity="*" />
+          <End Type="GESTISCO.CONSULAREAModel.TREGISTRY_PROVINCE" Role="TREGISTRY_PROVINCE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TREGISTRY_PROVINCE">
+              <PropertyRef Name="IDPROVINCE" />
+            </Principal>
+            <Dependent Role="TCOURSE_MEMBER">
+              <PropertyRef Name="IDMEMBER_PROVINCE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TCLIENTTCLIENT_ACCOUNTING">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_ACCOUNTING" Role="TCLIENT_ACCOUNTING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_ACCOUNTING">
+              <PropertyRef Name="IDACCOUNTING_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_TCLIENT">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT1">
+              <PropertyRef Name="IDCLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TCLIENT_DATI_FATTURAZIONE">
+          <Key>
+            <PropertyRef Name="IDDATI_FATTURAZIONE" />
+          </Key>
+          <Property Name="IDDATI_FATTURAZIONE" Type="Int32" Nullable="false" />
+          <Property Name="IDDATI_FATTURAZIONE_CLIENT" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LOCALITY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IDDATI_FATTURAZIONE_PROVINCE" Type="Int32" />
+          <Property Name="IDDATI_FATTURAZIONE_STATE" Type="Int32" />
+          <Property Name="VATNUMBER" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="FISCAL_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CODICEFATTURAZIONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATI_FATTURAZIONEHIDE" Type="Boolean" Nullable="false" />
+          <Property Name="MACRODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TCLIENT" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT" FromRole="TCLIENT_DATI_FATTURAZIONE" ToRole="TCLIENT" />
+          <NavigationProperty Name="TCLIENT_DOMAIN_SERVICE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_DATI_FATTURAZIONE" ToRole="TCLIENT_DOMAIN_SERVICE" />
+          <NavigationProperty Name="TORDER_ACTIVITY_BILLING" Relationship="GESTISCO.CONSULAREAModel.FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_DATI_FATTURAZIONE" ToRole="TORDER_ACTIVITY_BILLING" />
+          <NavigationProperty Name="TCLIENT_BILL" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_DATI_FATTURAZIONE" ToRole="TCLIENT_BILL" />
+          <NavigationProperty Name="TCLIENT_BILL_DETAIL" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_DATI_FATTURAZIONE" ToRole="TCLIENT_BILL_DETAIL" />
+        </EntityType>
+        <Association Name="FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" Role="TCLIENT_DATI_FATTURAZIONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_DOMAIN_SERVICE_TCLIENT_DATI_FATTURAZIONE">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" Role="TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE" Role="TCLIENT_DOMAIN_SERVICE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TCLIENT_DOMAIN_SERVICE">
+              <PropertyRef Name="IDSERVICE_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_BILLING_TCLIENT_DATI_FATTURAZIONE">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" Role="TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING" Role="TORDER_ACTIVITY_BILLING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY_BILLING">
+              <PropertyRef Name="IDBILLING_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TACTIVITY_TYPE_TACTIVITY_TYPE_CATEGORY">
+          <End Type="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE_CATEGORY" Role="TACTIVITY_TYPE_CATEGORY" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE" Role="TACTIVITY_TYPE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TACTIVITY_TYPE_CATEGORY">
+              <PropertyRef Name="IDCATEGORY" />
+            </Principal>
+            <Dependent Role="TACTIVITY_TYPE">
+              <PropertyRef Name="IDTYPE_CATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE">
+          <End Type="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE" Role="TACTIVITY_TYPE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY" Role="TORDER_ACTIVITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TACTIVITY_TYPE">
+              <PropertyRef Name="IDTYPE" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY">
+              <PropertyRef Name="IDACTIVITY_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TORDER_ACTIVITY_TACTIVITY_TYPE_CATEGORY">
+          <End Type="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE_CATEGORY" Role="TACTIVITY_TYPE_CATEGORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY" Role="TORDER_ACTIVITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TACTIVITY_TYPE_CATEGORY">
+              <PropertyRef Name="IDCATEGORY" />
+            </Principal>
+            <Dependent Role="TORDER_ACTIVITY">
+              <PropertyRef Name="IDCATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT" Role="TCLIENT" Multiplicity="1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" Role="TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" Role="TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL" Role="TCLIENT_BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL">
+              <PropertyRef Name="IDBILL_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCLIENT_BILL_DETAIL_TCLIENT_DATI_FATTURAZIONE">
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE" Role="TCLIENT_DATI_FATTURAZIONE" Multiplicity="0..1" />
+          <End Type="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL" Role="TCLIENT_BILL_DETAIL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCLIENT_DATI_FATTURAZIONE">
+              <PropertyRef Name="IDDATI_FATTURAZIONE" />
+            </Principal>
+            <Dependent Role="TCLIENT_BILL_DETAIL">
+              <PropertyRef Name="IDDETAIL_DATI_FATTURAZIONE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GESTISCOCONSULAREAModelStoreContainer" CdmEntityContainer="EntitiesGestisco">
+          <EntitySetMapping Name="TACTIVITY_TYPE">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE">
+              <MappingFragment StoreEntitySet="TACTIVITY_TYPE">
+                <ScalarProperty Name="IDTYPE" ColumnName="IDTYPE" />
+                <ScalarProperty Name="IDTYPE_CATEGORY" ColumnName="IDTYPE_CATEGORY" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="TYPE_POS" ColumnName="TYPE_POS" />
+                <ScalarProperty Name="TYPE_HIDE" ColumnName="TYPE_HIDE" />
+                <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+                <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TACTIVITY_TYPE_CATEGORY">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TACTIVITY_TYPE_CATEGORY">
+              <MappingFragment StoreEntitySet="TACTIVITY_TYPE_CATEGORY">
+                <ScalarProperty Name="CATEGORY_POS" ColumnName="CATEGORY_POS" />
+                <ScalarProperty Name="IDCATEGORY" ColumnName="IDCATEGORY" />
+                <ScalarProperty Name="IDCATEGORY_COMPANY" ColumnName="IDCATEGORY_COMPANY" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="CATEGORY_HIDE" ColumnName="CATEGORY_HIDE" />
+                <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+                <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCLIENT">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT">
+              <MappingFragment StoreEntitySet="TCLIENT">
+                <ScalarProperty Name="IDCLIENT" ColumnName="IDCLIENT" />
+                <ScalarProperty Name="IDCLIENT_CORPORATE" ColumnName="IDCLIENT_CORPORATE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="LOCALITY" ColumnName="LOCALITY" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="IDCLIENT_PROVINCE" ColumnName="IDCLIENT_PROVINCE" />
+                <ScalarProperty Name="IDCLIENT_STATE" ColumnName="IDCLIENT_STATE" />
+                <ScalarProperty Name="VATNUMBER" ColumnName="VATNUMBER" />
+                <ScalarProperty Name="FISCAL_CODE" ColumnName="FISCAL_CODE" />
+                <ScalarProperty Name="PHONE1" ColumnName="PHONE1" />
+                <ScalarProperty Name="PHONE2" ColumnName="PHONE2" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="EMAIL2" ColumnName="EMAIL2" />
+                <ScalarProperty Name="EMAIL3" ColumnName="EMAIL3" />
+                <ScalarProperty Name="WEB" ColumnName="WEB" />
+                <ScalarProperty Name="PRIVACY" ColumnName="PRIVACY" />
+                <ScalarProperty Name="NOTE" ColumnName="NOTE" />
+                <ScalarProperty Name="IDCLIENT_ACTIVITY" ColumnName="IDCLIENT_ACTIVITY" />
+                <ScalarProperty Name="IDCLIENT_SECTOR" ColumnName="IDCLIENT_SECTOR" />
+                <ScalarProperty Name="ACTIVITYNOTE" ColumnName="ACTIVITYNOTE" />
+                <ScalarProperty Name="IDCLIENT_EMPLOYEE" ColumnName="IDCLIENT_EMPLOYEE" />
+                <ScalarProperty Name="IDCLIENT_COMPETITOR" ColumnName="IDCLIENT_COMPETITOR" />
+                <ScalarProperty Name="IDCLIENT_BUDGET" ColumnName="IDCLIENT_BUDGET" />
+                <ScalarProperty Name="IDCLIENT_TURNOVER" ColumnName="IDCLIENT_TURNOVER" />
+                <ScalarProperty Name="GROUPNAME" ColumnName="GROUPNAME" />
+                <ScalarProperty Name="CLIENT_NEWSLETTER" ColumnName="CLIENT_NEWSLETTER" />
+                <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
+                <ScalarProperty Name="IDCLIENT_FONDO" ColumnName="IDCLIENT_FONDO" />
+                <ScalarProperty Name="CODICEFATTURAZIONE" ColumnName="CODICEFATTURAZIONE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TREGISTRY_PROVINCE">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TREGISTRY_PROVINCE">
+              <MappingFragment StoreEntitySet="TREGISTRY_PROVINCE">
+                <ScalarProperty Name="PROVINCEHIDE" ColumnName="PROVINCEHIDE" />
+                <ScalarProperty Name="PROVINCEACRONYM" ColumnName="PROVINCEACRONYM" />
+                <ScalarProperty Name="PROVINCE" ColumnName="PROVINCE" />
+                <ScalarProperty Name="IDPROVINCE" ColumnName="IDPROVINCE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TREGISTRY_STATE">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TREGISTRY_STATE">
+              <MappingFragment StoreEntitySet="TREGISTRY_STATE">
+                <ScalarProperty Name="STATEHIDE" ColumnName="STATEHIDE" />
+                <ScalarProperty Name="STATECODE" ColumnName="STATECODE" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="IDSTATE" ColumnName="IDSTATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCLIENT_BILL">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_BILL">
+              <MappingFragment StoreEntitySet="TCLIENT_BILL">
+                <ScalarProperty Name="IDBILL_DATI_FATTURAZIONE" ColumnName="IDBILL_DATI_FATTURAZIONE" />
+                <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
+                <ScalarProperty Name="BILL_IMPORT_RECEIVED" ColumnName="BILL_IMPORT_RECEIVED" />
+                <ScalarProperty Name="BILL_RECEIVED" ColumnName="BILL_RECEIVED" />
+                <ScalarProperty Name="BILL_TYPE" ColumnName="BILL_TYPE" />
+                <ScalarProperty Name="BILL_NOTE_PRINT" ColumnName="BILL_NOTE_PRINT" />
+                <ScalarProperty Name="BILL_NOTE" ColumnName="BILL_NOTE" />
+                <ScalarProperty Name="BILL_IMPORT" ColumnName="BILL_IMPORT" />
+                <ScalarProperty Name="BILL_DATE" ColumnName="BILL_DATE" />
+                <ScalarProperty Name="BILL_NUM" ColumnName="BILL_NUM" />
+                <ScalarProperty Name="IDBILL_MONTH" ColumnName="IDBILL_MONTH" />
+                <ScalarProperty Name="IDBILL_YEAR" ColumnName="IDBILL_YEAR" />
+                <ScalarProperty Name="IDBILL_CLIENT" ColumnName="IDBILL_CLIENT" />
+                <ScalarProperty Name="IDBILL_COMPANY" ColumnName="IDBILL_COMPANY" />
+                <ScalarProperty Name="IDBILL" ColumnName="IDBILL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCLIENT_BILL_DETAIL">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_BILL_DETAIL">
+              <MappingFragment StoreEntitySet="TCLIENT_BILL_DETAIL">
+                <ScalarProperty Name="IDDETAIL_DATI_FATTURAZIONE" ColumnName="IDDETAIL_DATI_FATTURAZIONE" />
+                <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
+                <ScalarProperty Name="DETAIL_NOTE" ColumnName="DETAIL_NOTE" />
+                <ScalarProperty Name="DETAIL_PRICE" ColumnName="DETAIL_PRICE" />
+                <ScalarProperty Name="DETAIL_TYPE" ColumnName="DETAIL_TYPE" />
+                <ScalarProperty Name="IDDETAIL_ACTIVITY_BILLING" ColumnName="IDDETAIL_ACTIVITY_BILLING" />
+                <ScalarProperty Name="IDDETAIL_SERVICE" ColumnName="IDDETAIL_SERVICE" />
+                <ScalarProperty Name="IDDETAIL_MONTH" ColumnName="IDDETAIL_MONTH" />
+                <ScalarProperty Name="IDDETAIL_YEAR" ColumnName="IDDETAIL_YEAR" />
+                <ScalarProperty Name="IDDETAIL_CLIENT" ColumnName="IDDETAIL_CLIENT" />
+                <ScalarProperty Name="IDDETAIL_COMPANY" ColumnName="IDDETAIL_COMPANY" />
+                <ScalarProperty Name="IDDETAIL_BILL" ColumnName="IDDETAIL_BILL" />
+                <ScalarProperty Name="IDDETAIL" ColumnName="IDDETAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TORDER_ACTIVITY">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY">
+              <MappingFragment StoreEntitySet="TORDER_ACTIVITY">
+                <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
+                <ScalarProperty Name="ACTIVITY_HIDE" ColumnName="ACTIVITY_HIDE" />
+                <ScalarProperty Name="IMPORTUSER" ColumnName="IMPORTUSER" />
+                <ScalarProperty Name="RIMBUSER" ColumnName="RIMBUSER" />
+                <ScalarProperty Name="MONITORING" ColumnName="MONITORING" />
+                <ScalarProperty Name="WORKUSERS" ColumnName="WORKUSERS" />
+                <ScalarProperty Name="IDACTIVITY_PROGRESS" ColumnName="IDACTIVITY_PROGRESS" />
+                <ScalarProperty Name="IDACTIVITY_STATUS" ColumnName="IDACTIVITY_STATUS" />
+                <ScalarProperty Name="IDACTIVITY_MODE" ColumnName="IDACTIVITY_MODE" />
+                <ScalarProperty Name="SPRICE" ColumnName="SPRICE" />
+                <ScalarProperty Name="HOUR" ColumnName="HOUR" />
+                <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
+                <ScalarProperty Name="EXPIRYDATE" ColumnName="EXPIRYDATE" />
+                <ScalarProperty Name="IDUSER_RESP" ColumnName="IDUSER_RESP" />
+                <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
+                <ScalarProperty Name="REGDATE" ColumnName="REGDATE" />
+                <ScalarProperty Name="IDUSER_REG" ColumnName="IDUSER_REG" />
+                <ScalarProperty Name="ACTIVITY_NOTE" ColumnName="ACTIVITY_NOTE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ACTIVITY_TYPE" ColumnName="ACTIVITY_TYPE" />
+                <ScalarProperty Name="IDACTIVITY_TYPE" ColumnName="IDACTIVITY_TYPE" />
+                <ScalarProperty Name="CATEGORY" ColumnName="CATEGORY" />
+                <ScalarProperty Name="IDCATEGORY" ColumnName="IDCATEGORY" />
+                <ScalarProperty Name="IDACTIVITY_OFFER_ACTIVITY" ColumnName="IDACTIVITY_OFFER_ACTIVITY" />
+                <ScalarProperty Name="IDACTIVITY_ORDER" ColumnName="IDACTIVITY_ORDER" />
+                <ScalarProperty Name="IDACTIVITY" ColumnName="IDACTIVITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TORDER_ACTIVITY_BILLING">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING">
+              <MappingFragment StoreEntitySet="TORDER_ACTIVITY_BILLING">
+                <ScalarProperty Name="IDBILLING_DATI_FATTURAZIONE" ColumnName="IDBILLING_DATI_FATTURAZIONE" />
+                <ScalarProperty Name="BILLING_HIDE" ColumnName="BILLING_HIDE" />
+                <ScalarProperty Name="BILLING_END_DATE" ColumnName="BILLING_END_DATE" />
+                <ScalarProperty Name="BILLING_DATE" ColumnName="BILLING_DATE" />
+                <ScalarProperty Name="BILLING_LIMIT_DATE" ColumnName="BILLING_LIMIT_DATE" />
+                <ScalarProperty Name="BILLING_PRICE" ColumnName="BILLING_PRICE" />
+                <ScalarProperty Name="BILLING_PERC" ColumnName="BILLING_PERC" />
+                <ScalarProperty Name="IDBILLING_PERC" ColumnName="IDBILLING_PERC" />
+                <ScalarProperty Name="BILLING_DESC" ColumnName="BILLING_DESC" />
+                <ScalarProperty Name="IDBILLING_STEP" ColumnName="IDBILLING_STEP" />
+                <ScalarProperty Name="IDBILLING_ACTIVITY" ColumnName="IDBILLING_ACTIVITY" />
+                <ScalarProperty Name="IDBILLING" ColumnName="IDBILLING" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TORDER_ACTIVITY_BILLING_STEP">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TORDER_ACTIVITY_BILLING_STEP">
+              <MappingFragment StoreEntitySet="TORDER_ACTIVITY_BILLING_STEP">
+                <ScalarProperty Name="STEP_HIDE" ColumnName="STEP_HIDE" />
+                <ScalarProperty Name="STEP_POS" ColumnName="STEP_POS" />
+                <ScalarProperty Name="STEP" ColumnName="STEP" />
+                <ScalarProperty Name="IDSTEP_MODE" ColumnName="IDSTEP_MODE" />
+                <ScalarProperty Name="IDSTEP" ColumnName="IDSTEP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCLIENT_DOMAIN_SERVICE">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE">
+              <MappingFragment StoreEntitySet="TCLIENT_DOMAIN_SERVICE">
+                <ScalarProperty Name="IDSERVICE_DATI_FATTURAZIONE" ColumnName="IDSERVICE_DATI_FATTURAZIONE" />
+                <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
+                <ScalarProperty Name="SERVICE_HIDE" ColumnName="SERVICE_HIDE" />
+                <ScalarProperty Name="SERVICE_NOTE" ColumnName="SERVICE_NOTE" />
+                <ScalarProperty Name="SERVICE_PRICE" ColumnName="SERVICE_PRICE" />
+                <ScalarProperty Name="SERVICE_COST" ColumnName="SERVICE_COST" />
+                <ScalarProperty Name="ENDBILLDATE" ColumnName="ENDBILLDATE" />
+                <ScalarProperty Name="BILLDATE" ColumnName="BILLDATE" />
+                <ScalarProperty Name="ACTIVATIONDATE" ColumnName="ACTIVATIONDATE" />
+                <ScalarProperty Name="IDSERVICE_PLANNING" ColumnName="IDSERVICE_PLANNING" />
+                <ScalarProperty Name="IDSERVICE_SERVER" ColumnName="IDSERVICE_SERVER" />
+                <ScalarProperty Name="IDSERVICE_TYPE" ColumnName="IDSERVICE_TYPE" />
+                <ScalarProperty Name="IDSERVICE_DOMAIN" ColumnName="IDSERVICE_DOMAIN" />
+                <ScalarProperty Name="IDSERVICE" ColumnName="IDSERVICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCLIENT_DOMAIN_SERVICE_PLANNING">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_PLANNING">
+              <MappingFragment StoreEntitySet="TCLIENT_DOMAIN_SERVICE_PLANNING">
+                <ScalarProperty Name="PLANNING_HIDE" ColumnName="PLANNING_HIDE" />
+                <ScalarProperty Name="PLANNING_VALUE" ColumnName="PLANNING_VALUE" />
+                <ScalarProperty Name="PLANNING" ColumnName="PLANNING" />
+                <ScalarProperty Name="IDPLANNING" ColumnName="IDPLANNING" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCLIENT_DOMAIN_SERVICE_TYPE">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_DOMAIN_SERVICE_TYPE">
+              <MappingFragment StoreEntitySet="TCLIENT_DOMAIN_SERVICE_TYPE">
+                <ScalarProperty Name="TYPE_HIDE" ColumnName="TYPE_HIDE" />
+                <ScalarProperty Name="TYPE_POS" ColumnName="TYPE_POS" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="IDTYPE" ColumnName="IDTYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="udfTCLIENT_BILL_YM" FunctionName="GESTISCO.CONSULAREAModel.Store.udfTCLIENT_BILL_YM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GESTISCO.CONSULAREAModel.udfTCLIENT_BILL_YM_Result">
+                <ScalarProperty Name="COMPANY_SIGLA" ColumnName="COMPANY_SIGLA" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="LOCALITY" ColumnName="LOCALITY" />
+                <ScalarProperty Name="PROVINCE" ColumnName="PROVINCE" />
+                <ScalarProperty Name="VATNUMBER" ColumnName="VATNUMBER" />
+                <ScalarProperty Name="FISCAL_CODE" ColumnName="FISCAL_CODE" />
+                <ScalarProperty Name="BILL_NUM" ColumnName="BILL_NUM" />
+                <ScalarProperty Name="BILL_DATE" ColumnName="BILL_DATE" />
+                <ScalarProperty Name="PAYMENT" ColumnName="PAYMENT" />
+                <ScalarProperty Name="BANK" ColumnName="BANK" />
+                <ScalarProperty Name="COORDINATE" ColumnName="COORDINATE" />
+                <ScalarProperty Name="DETAIL_PRICE" ColumnName="DETAIL_PRICE" />
+                <ScalarProperty Name="DETAIL_NOTE" ColumnName="DETAIL_NOTE" />
+                <ScalarProperty Name="BILL_NOTE_PRINT" ColumnName="BILL_NOTE_PRINT" />
+                <ScalarProperty Name="DETAIL" ColumnName="DETAIL" />
+                <ScalarProperty Name="IDACTIVITY_TYPE" ColumnName="IDACTIVITY_TYPE" />
+                <ScalarProperty Name="SPESEINCASSO" ColumnName="SPESEINCASSO" />
+                <ScalarProperty Name="SPESEINCASSOVAL" ColumnName="SPESEINCASSOVAL" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="VATDESC" ColumnName="VATDESC" />
+                <ScalarProperty Name="RIMBORSOKM" ColumnName="RIMBORSOKM" />
+                <ScalarProperty Name="VALORE_RIMBORSO" ColumnName="VALORE_RIMBORSO" />
+                <ScalarProperty Name="DESCRIZIONE_RIMBORSO" ColumnName="DESCRIZIONE_RIMBORSO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TCLIENT_ACCOUNTING">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_ACCOUNTING">
+              <MappingFragment StoreEntitySet="TCLIENT_ACCOUNTING">
+                <ScalarProperty Name="LETTERA_DINTENTI" ColumnName="LETTERA_DINTENTI" />
+                <ScalarProperty Name="SPLIT_PAYMENT" ColumnName="SPLIT_PAYMENT" />
+                <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
+                <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+                <ScalarProperty Name="RIMBORSOFORFAIT" ColumnName="RIMBORSOFORFAIT" />
+                <ScalarProperty Name="RIMBORSOKMVAL" ColumnName="RIMBORSOKMVAL" />
+                <ScalarProperty Name="RIMBORSOKM" ColumnName="RIMBORSOKM" />
+                <ScalarProperty Name="ESENZIONEIVADESC" ColumnName="ESENZIONEIVADESC" />
+                <ScalarProperty Name="ESENZIONEIVA" ColumnName="ESENZIONEIVA" />
+                <ScalarProperty Name="SPESEINCASSOVAL" ColumnName="SPESEINCASSOVAL" />
+                <ScalarProperty Name="SPESEINCASSO" ColumnName="SPESEINCASSO" />
+                <ScalarProperty Name="BILLNOTE" ColumnName="BILLNOTE" />
+                <ScalarProperty Name="BOOKCODE" ColumnName="BOOKCODE" />
+                <ScalarProperty Name="ISTATCODE" ColumnName="ISTATCODE" />
+                <ScalarProperty Name="CAB" ColumnName="CAB" />
+                <ScalarProperty Name="ABI" ColumnName="ABI" />
+                <ScalarProperty Name="PAYMENT" ColumnName="PAYMENT" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BANK_SEAT" ColumnName="BANK_SEAT" />
+                <ScalarProperty Name="BANK" ColumnName="BANK" />
+                <ScalarProperty Name="IDACCOUNTING_COMPANY" ColumnName="IDACCOUNTING_COMPANY" />
+                <ScalarProperty Name="IDACCOUNTING_CLIENT" ColumnName="IDACCOUNTING_CLIENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCOURSE_EDITION_MEMBER">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCOURSE_EDITION_MEMBER">
+              <MappingFragment StoreEntitySet="TCOURSE_EDITION_MEMBER">
+                <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
+                <ScalarProperty Name="QUOTAPERS" ColumnName="QUOTAPERS" />
+                <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+                <ScalarProperty Name="ATTESTATONUM" ColumnName="ATTESTATONUM" />
+                <ScalarProperty Name="ATTESTATO" ColumnName="ATTESTATO" />
+                <ScalarProperty Name="PERC" ColumnName="PERC" />
+                <ScalarProperty Name="HOURNUM" ColumnName="HOURNUM" />
+                <ScalarProperty Name="IDMEMBER_LINK" ColumnName="IDMEMBER_LINK" />
+                <ScalarProperty Name="IDEDITION_LINK" ColumnName="IDEDITION_LINK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCOURSE_MEMBER">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER">
+              <MappingFragment StoreEntitySet="TCOURSE_MEMBER">
+                <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
+                <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+                <ScalarProperty Name="MEMBERHIDE" ColumnName="MEMBERHIDE" />
+                <ScalarProperty Name="MANSIONE" ColumnName="MANSIONE" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="BANK" ColumnName="BANK" />
+                <ScalarProperty Name="PAYMENT" ColumnName="PAYMENT" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="FISCALCODE" ColumnName="FISCALCODE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="IDMEMBER_PROVINCE" ColumnName="IDMEMBER_PROVINCE" />
+                <ScalarProperty Name="LOCALITY" ColumnName="LOCALITY" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="BIRTHPLACE" ColumnName="BIRTHPLACE" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="IDMEMBER_GROUP" ColumnName="IDMEMBER_GROUP" />
+                <ScalarProperty Name="IDMEMBER_CLIENT" ColumnName="IDMEMBER_CLIENT" />
+                <ScalarProperty Name="IDMEMBER_CORPORATE" ColumnName="IDMEMBER_CORPORATE" />
+                <ScalarProperty Name="IDMEMBER" ColumnName="IDMEMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="udfTcourseEditionBilling" FunctionName="GESTISCO.CONSULAREAModel.Store.udfTcourseEditionBilling">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GESTISCO.CONSULAREAModel.udfTcourseEditionBilling_Result">
+                <ScalarProperty Name="IDCLIENT" ColumnName="IDCLIENT" />
+                <ScalarProperty Name="IDBILLING_MEMBER" ColumnName="IDBILLING_MEMBER" />
+                <ScalarProperty Name="IDBILLING_EDITION" ColumnName="IDBILLING_EDITION" />
+                <ScalarProperty Name="BILLING_NUM" ColumnName="BILLING_NUM" />
+                <ScalarProperty Name="BILL_DATE" ColumnName="BILL_DATE" />
+                <ScalarProperty Name="BILLING_PRICE" ColumnName="BILLING_PRICE" />
+                <ScalarProperty Name="BILLING_VAT" ColumnName="BILLING_VAT" />
+                <ScalarProperty Name="EDITION_NUM" ColumnName="EDITION_NUM" />
+                <ScalarProperty Name="COURSE" ColumnName="COURSE" />
+                <ScalarProperty Name="HOURNUMTOTAL" ColumnName="HOURNUMTOTAL" />
+                <ScalarProperty Name="MINDATE" ColumnName="MINDATE" />
+                <ScalarProperty Name="MAXDATE" ColumnName="MAXDATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TCLIENT_DATI_FATTURAZIONE">
+            <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_DATI_FATTURAZIONE">
+              <MappingFragment StoreEntitySet="TCLIENT_DATI_FATTURAZIONE">
+                <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
+                <ScalarProperty Name="DATI_FATTURAZIONEHIDE" ColumnName="DATI_FATTURAZIONEHIDE" />
+                <ScalarProperty Name="CODICEFATTURAZIONE" ColumnName="CODICEFATTURAZIONE" />
+                <ScalarProperty Name="FISCAL_CODE" ColumnName="FISCAL_CODE" />
+                <ScalarProperty Name="VATNUMBER" ColumnName="VATNUMBER" />
+                <ScalarProperty Name="IDDATI_FATTURAZIONE_STATE" ColumnName="IDDATI_FATTURAZIONE_STATE" />
+                <ScalarProperty Name="IDDATI_FATTURAZIONE_PROVINCE" ColumnName="IDDATI_FATTURAZIONE_PROVINCE" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="LOCALITY" ColumnName="LOCALITY" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="IDDATI_FATTURAZIONE_CLIENT" ColumnName="IDDATI_FATTURAZIONE_CLIENT" />
+                <ScalarProperty Name="IDDATI_FATTURAZIONE" ColumnName="IDDATI_FATTURAZIONE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
