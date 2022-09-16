@@ -252,8 +252,9 @@ public class AxFattureConnector
             }
 
             //SE NON C'E IL CODICE SDI BLOCCO L'INVIO
+			if (client == null )return "CLIENTE NON TROVATO" ;
             if (client != null && string.IsNullOrEmpty(client.CODICEFATTURAZIONE)) return "CODICE SDI NON PRESENTE.";
-
+			//if(client.CLIENT_ACCOUNTING(bill.IDBILL_COMPANY).ESENZIONEIVA==null) return "ESENZIONEIVA nullo";
             //string nextBill = ProssimaNumerazioneFattura(bill.IDBILL_YEAR);
             //int iNextBillNumber = 0;
 
@@ -355,7 +356,7 @@ public class AxFattureConnector
             {
                 Ordine = nOrd++,
                 Tassabile = (bill.VAT > 0 ? true : false),
-                Codice = bill.IDACTIVITY_TYPE.ToString(), // "", ////TODO: cosa ci mettiamo?
+                Codice = bill.IDACTIVITY_TYPE.ToString(),//"", ////TODO: cosa ci mettiamo?
                 Quantita = 1,                
                 prezzo_netto = (double)bill.DETAIL_PRICE
             };

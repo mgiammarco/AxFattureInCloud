@@ -46,6 +46,7 @@ public class WsFattureInCloud : System.Web.Services.WebService
     /// </summary>
     /// <param name="idCompany"></param>
     /// <param name="idBill"></param>
+	/// <param name="iddatifatturazione"></param>
     /// <returns></returns>
     [WebMethod]
     public string InviaFattura(int idCompany, int idBill,int iddatifatturazione)
@@ -76,8 +77,17 @@ public class WsFattureInCloud : System.Web.Services.WebService
     [WebMethod]
     public string InviaFatturaCorso(int idCompany, string idBill_corsi)
     {
-        MyDbUtility.scriviLog("InviaFatturaCorso = idCompany:" + idCompany + "|idBill_corsi:" + idBill_corsi);
-        string strReturn = new AxFattureConnector(idCompany).EsportaFatturaCorso(idBill_corsi);
+        string strReturn="";
+		MyDbUtility.scriviLog("InviaFatturaCorso = idCompany:" + idCompany + "|idBill_corsi:" + idBill_corsi);
+        try
+		{
+			strReturn = new AxFattureConnector(idCompany).EsportaFatturaCorso(idBill_corsi);
+		}
+        catch (Exception ex)
+        {
+			strReturn = "Errore importazione fattura.";
+            MyDbUtility.scriviLog("Errore InviaFattura = idCompany:" + idCompany + "|idBill_corsi:" + idBill_corsi +"|" +ex.Message + "|" + ex.StackTrace);
+        }
         MyDbUtility.scriviLog(strReturn);
         return strReturn;
         //return AxFattureConnector.inviaFatturaTest();
