@@ -1,17 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Web;
 using System.Configuration;
-
+using System.IO;
+using Newtonsoft.Json;
+using FattureInCloudConfiguration = It.FattureInCloud.Sdk.Client.Configuration;
 
 public class AxFattureConnector
 {
+    private readonly FattureInCloudConfiguration _configuration;
+
+
     public AxFattureConnector(int idCorporate)
     {
-        this.idCorporate = idCorporate;
+	    this.idCorporate = idCorporate;
+
+	    var accestoken = JsonConvert.DeserializeObject<StringDictionary>(
+		    File.ReadAllText(ConfigurationManager.AppSettings["APIKEYS_JSON"])
+	    )[$"api_uid_{this.idCorporate}"];
+
+	    this._configuration = new FattureInCloudConfiguration()
+	    {
+		    BasePath = "https://api-v2.fattureincloud.it",
+		    AccessToken = accestoken
+	    };
     }
-    
+
     public static int iva = int.Parse(ConfigurationManager.AppSettings["iva"]);
     public static double ivaMultiplier = (100 + iva)/100d; // = 1.22
 
@@ -22,13 +37,7 @@ public class AxFattureConnector
     public int idCorporate { get; set; }
 
     private void impostaChiavi(api_generic_request api) {
-
-        if (this.idCorporate != 0)
-        {
-            api.api_uid = ConfigurationManager.AppSettings["api_uid_" + this.idCorporate.ToString()];
-            api.api_key = ConfigurationManager.AppSettings["api_key_" + this.idCorporate.ToString()];
-        }
-
+        //TODO rimuovere
     }
 
     public bool trovaAnagrafica(string piva, string cf,out string idCliente)

@@ -13,6 +13,7 @@ using System.IO;
 /// <summary>
 /// Descrizione di riepilogo per ApiFattureInCloud
 /// </summary>
+[Obsolete("da eradicare")]
 public class ApiFattureInCloud
 {
     public ApiFattureInCloud()
