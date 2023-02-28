@@ -27,7 +27,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{70659512-8CCE-4569-B4F4-CC8A1F89BE21}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
-		secrets.json = secrets.json
 	EndProjectSection
 EndProject
 Global
