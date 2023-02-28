@@ -103,18 +103,18 @@ public class WsFattureInCloud : System.Web.Services.WebService
 
         API_FatturaListaResponse fatture;
         fc.trovaFatture(anno,1,out fatture);
-        if(fatture.lista_documenti.Count>0 && fatture.numero_pagine > fatture.pagina_corrente)
+        if(fatture.data.Count>0 && fatture.from > fatture.current_page)
         {
             API_FatturaListaResponse fatture2;
             fc.trovaFatture(anno, 2, out fatture2);
-            fatture.lista_documenti.AddRange(fatture2.lista_documenti);
+            fatture.data.AddRange(fatture2.data);
         }
 
         List<AnagraficaCliente> clientiSenzaFatture = new List<AnagraficaCliente>() ;
-        if (clienti.lista_clienti.Count>0 && fatture.lista_documenti.Count > 0) {
-            foreach (var item in clienti.lista_clienti)
+        if (clienti.data.Count>0 && fatture.data.Count > 0) {
+            foreach (var item in clienti.data)
             {
-                if (!fatture.lista_documenti.Any(w => w.id_cliente == item.id)) {
+                if (!fatture.data.Any(w => w.id_cliente == item.id)) {
                     clientiSenzaFatture.Add(item);
                 }
             }
