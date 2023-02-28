@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AxFattureInCloud", "AxFattureInCloud\", "{B2814E94-7F72-4477-AFF7-8CE0DCC6A462}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58158"
+		Debug.AspNetCompiler.PhysicalPath = "AxFattureInCloud\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58158\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58158"
+		Release.AspNetCompiler.PhysicalPath = "AxFattureInCloud\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58158\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58158"
+		SlnRelativePath = "AxFattureInCloud\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{70659512-8CCE-4569-B4F4-CC8A1F89BE21}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2814E94-7F72-4477-AFF7-8CE0DCC6A462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2814E94-7F72-4477-AFF7-8CE0DCC6A462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EC28649-B303-46A4-95ED-7DA9BB6B6B81}
+	EndGlobalSection
+EndGlobal

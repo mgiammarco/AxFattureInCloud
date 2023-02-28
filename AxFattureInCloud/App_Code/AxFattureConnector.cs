@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Configuration;
-
 
 public class AxFattureConnector
 {
-    public AxFattureConnector(int idCorporate)
-    {
-        this.idCorporate = idCorporate;
-    }
-    
-    public static int iva = int.Parse(ConfigurationManager.AppSettings["iva"]);
+    public int idCorporate { get; set; }
+
+	public static int iva = int.Parse(ConfigurationManager.AppSettings["iva"]);
     public static double ivaMultiplier = (100 + iva)/100d; // = 1.22
 
     public static string[] Conf_Payment = ConfigurationManager.AppSettings["PAYMENT"].Split(',');
     public static string[] Conf_Bank = ConfigurationManager.AppSettings["BANK"].Split(',');
     public static string[] Conf_Iban = ConfigurationManager.AppSettings["IBAN"].Split(',');
 
-    public int idCorporate { get; set; }
+
+	public AxFattureConnector(int idCorporate)
+    {
+	    this.idCorporate = idCorporate;
+    }
 
     private void impostaChiavi(api_generic_request api) {
-
-        if (this.idCorporate != 0)
-        {
-            api.api_uid = ConfigurationManager.AppSettings["api_uid_" + this.idCorporate.ToString()];
-            api.api_key = ConfigurationManager.AppSettings["api_key_" + this.idCorporate.ToString()];
-        }
-
+	    if (this.idCorporate != 0)
+	    {
+		    api.api_uid = ConfigurationManager.AppSettings[$"api_uid_{this.idCorporate}"];
+		    api.api_key = ConfigurationManager.AppSettings[$"api_key_{this.idCorporate}"];
+	    }
     }
 
     public bool trovaAnagrafica(string piva, string cf,out string idCliente)
@@ -37,10 +34,10 @@ public class AxFattureConnector
         API_AnagraficaListaRequest filtro = new API_AnagraficaListaRequest() { piva = piva, cf = cf, pagina = 1 };
         impostaChiavi(filtro);
 
-        API_AnagraficaListaResponse RES = ApiFattureInCloud.PostListaClienti(filtro);
-        if (RES.success && RES.lista_clienti.Count > 0)
+        API_AnagraficaListaResponse RES = ApiFattureInCloud.ClientiLista(filtro);
+        if (RES.success && RES.data.Count > 0)
         {
-            idCliente = RES.lista_clienti[0].id;
+            idCliente = RES.data[0].id;
             return true;
         }
         else
@@ -56,8 +53,8 @@ public class AxFattureConnector
         API_AnagraficaListaRequest filtro = new API_AnagraficaListaRequest() { piva = piva, cf = cf, pagina = 1 };
         impostaChiavi(filtro);
 
-        API_AnagraficaListaResponse RES = ApiFattureInCloud.PostListaClienti(filtro);
-        if (RES.success && RES.lista_clienti.Count > 0)
+        API_AnagraficaListaResponse RES = ApiFattureInCloud.ClientiLista(filtro);
+        if (RES.success && RES.data.Count > 0)
         {
             return RES;
             
@@ -72,8 +69,8 @@ public class AxFattureConnector
         API_FattureListaRequest filtro = new API_FattureListaRequest() { anno = anno, pagina=pagina };
         impostaChiavi(filtro);
 
-        API_FatturaListaResponse RES = ApiFattureInCloud.PostListaFatture(filtro);
-        if (RES.success && RES.lista_documenti.Count > 0)
+        API_FatturaListaResponse RES = ApiFattureInCloud.FattureLista(filtro);
+        if (RES.success && RES.data.Count > 0)
         {
             fatture = RES;
             return true;
@@ -123,10 +120,10 @@ public class AxFattureConnector
 
     public string EsportaAnagraficaCorso(API_AnagraficaNuovoSingoloRequest client)
     {
-        if (client != null && (client.piva != "" || client.cf != ""))
+        if (client != null && (client.data.vat_number != "" || client.data.cf != ""))
         {
             string idAnagrafica = "";
-            if (!trovaAnagrafica(client.piva.Trim(), client.cf.Trim(), out idAnagrafica))
+            if (!trovaAnagrafica(client.data.vat_number.Trim(), client.data.cf.Trim(), out idAnagrafica))
             {
                 idAnagrafica = inviaAnagrafica(client);
                 return idAnagrafica;
@@ -152,7 +149,7 @@ public class AxFattureConnector
         // pec??
         
         impostaChiavi(cliente);
-        API_AnagraficaNuovoSingoloResponse clientesalvato = ApiFattureInCloud.PostCliente(cliente);
+        API_AnagraficaNuovoSingoloResponse clientesalvato = ApiFattureInCloud.ClienteNuovo(cliente);
         return clientesalvato.id;
     }
 
@@ -161,7 +158,7 @@ public class AxFattureConnector
         // pec??
         impostaChiavi(cliente);
 
-        API_AnagraficaModificaSingoloResponse clientesalvato = ApiFattureInCloud.ModificaCliente(cliente);
+        API_AnagraficaModificaSingoloResponse clientesalvato = ApiFattureInCloud.ClienteModifica(cliente);
         return clientesalvato.success ;
     }
 
@@ -182,22 +179,25 @@ public class AxFattureConnector
 
         API_AnagraficaNuovoSingoloRequest cliente = new API_AnagraficaNuovoSingoloRequest()
         {
-            cf = (""+client.FISCAL_CODE).Trim(),
-            piva = (""+client.VATNUMBER).Trim() ,
-            indirizzo_cap = client.ZIPCODE,
-            indirizzo_citta = client.LOCALITY,
-            indirizzo_provincia = (client.TREGISTRY_PROVINCE!=null?client.TREGISTRY_PROVINCE.PROVINCEACRONYM:""),
-            indirizzo_via = client.ADDRESS,
-            mail = email, /*client.EMAIL,*/
-            nome = client.NAME,
-            paese_iso =(client.TREGISTRY_STATE!=null?client.TREGISTRY_STATE.STATECODE:"IT"),
-            PA = true, //???
-            PA_codice = client.CODICEFATTURAZIONE,
-            tel = client.PHONE1,
-            termini_pagamento = 30 //TODO: termini di pagamento ?
-            , 
-            //extra = client.IDCLIENT.ToString(),
-        };
+            data = new AnagraficaCliente()
+            {
+	            cf = (""+client.FISCAL_CODE).Trim(),
+	            vat_number = (""+client.VATNUMBER).Trim() ,
+	            address_postal_code = client.ZIPCODE,
+	            address_city = client.LOCALITY,
+	            address_province = (client.TREGISTRY_PROVINCE!=null?client.TREGISTRY_PROVINCE.PROVINCEACRONYM:""),
+	            address_street = client.ADDRESS,
+	            email = email, /*client.EMAIL,*/
+	            name = client.NAME,
+	            paese_iso =(client.TREGISTRY_STATE!=null?client.TREGISTRY_STATE.STATECODE:"IT"),
+	            PA = true, //???
+	            PA_codice = client.CODICEFATTURAZIONE,
+	            phone = client.PHONE1,
+	            termini_pagamento = 30 //TODO: termini di pagamento ?
+	            , 
+	            //extra = client.IDCLIENT.ToString(),
+	        }
+	    };
 
         return inviaAnagrafica(cliente);
 
@@ -215,19 +215,22 @@ public class AxFattureConnector
 
         API_AnagraficaNuovoSingoloRequest cliente = new API_AnagraficaNuovoSingoloRequest()
         {
-            cf = "SMAMRC82T07C573Y",
-            indirizzo_cap = "47521",
-            indirizzo_citta = "Forlì",
-            indirizzo_provincia = "FC",
-            indirizzo_via = "Via antonio meucci 31",
-            mail = "msama@axterisco.it",
-            nome = "Marco Sama",
-            paese_iso = "IT",
-            PA = false,
-            tel = "348123456",
-            termini_pagamento = 30
+			data = new AnagraficaCliente()
+			{
+	            cf = "SMAMRC82T07C573Y",
+	            address_postal_code = "47521",
+	            address_city= "Forlì",
+	            address_province= "FC",
+	            address_street = "Via antonio meucci 31",
+	            email = "msama@axterisco.it",
+	            name = "Marco Sama",
+	            paese_iso = "IT",
+	            PA = false,
+	            phone = "348123456",
+	            termini_pagamento = 30
+	        }
         };
-        API_AnagraficaNuovoSingoloResponse clientesalvato = ApiFattureInCloud.PostCliente(cliente);
+        API_AnagraficaNuovoSingoloResponse clientesalvato = ApiFattureInCloud.ClienteNuovo(cliente);
         return clientesalvato.id;
     }
 
@@ -325,7 +328,7 @@ public class AxFattureConnector
 
         //modalita_pagamento = "1514954";
 
-        Api_DocNuovoRequest fattura = new Api_DocNuovoRequest()
+        Api_DocNuovoRequest fattura = new Api_DocNuovoRequest() { data = new Doc()
         {
             id_cliente = idAnagrafica,
             autocompila_anagrafica = true,
@@ -342,11 +345,11 @@ public class AxFattureConnector
             PA_modalita_pagamento= pa_modalita_pagamento,
             Numero = billHead.BILL_NUM.ToString()  ,
             split_payment = splitpayment
-        };
+        }};
 
 
-        fattura.lista_articoli = new List<ListaArticoli>();
-        fattura.lista_pagamenti = new List<ListaPagamenti>();
+        fattura.data.lista_articoli = new List<ListaArticoli>();
+        fattura.data.lista_pagamenti = new List<ListaPagamenti>();
 
         int nOrd = 0;
         double fattTot = 0;
@@ -375,7 +378,7 @@ public class AxFattureConnector
             
             //art.Descrizione = ;
 
-            fattura.lista_articoli.Add(art);
+            fattura.data.lista_articoli.Add(art);
 
             //fattura.lista_pagamenti.Add(new ListaPagamenti
             //{
@@ -398,7 +401,7 @@ public class AxFattureConnector
                 Nome = "Rimborso spese di trasferta",
                 Descrizione = billExtra.DESCRIZIONE_RIMBORSO
             };
-            fattura.lista_articoli.Add(art);
+            fattura.data.lista_articoli.Add(art);
             //fattura.lista_pagamenti.Add(new ListaPagamenti
             //{
             //    Importo = (long)(art.prezzo_netto * ivaMultiplier),
@@ -420,7 +423,7 @@ public class AxFattureConnector
                 Nome = "Spese di Incasso"
 
             };
-            fattura.lista_articoli.Add(art);
+            fattura.data.lista_articoli.Add(art);
 
             //fattura.lista_pagamenti.Add(new ListaPagamenti
             //{
@@ -432,7 +435,7 @@ public class AxFattureConnector
             fattTot += art.prezzo_netto;
         }
 
-        fattura.lista_pagamenti.Add(new ListaPagamenti
+        fattura.data.lista_pagamenti.Add(new ListaPagamenti
         {
             Importo = "auto",
             Metodo = "not",
@@ -447,7 +450,7 @@ public class AxFattureConnector
         //fattura.lista_pagamenti 
         impostaChiavi(fattura);
 
-        API_DocNuovoResponse newdoc = ApiFattureInCloud.PostFattura(fattura);
+        API_DocNuovoResponse newdoc = ApiFattureInCloud.FatturaNuovo(fattura);
         if (newdoc.success)
         {
             return newdoc.new_id.ToString();
@@ -513,27 +516,31 @@ public class AxFattureConnector
                 if (!string.IsNullOrEmpty(q.VAT) || !string.IsNullOrEmpty(q.FISCALCODE)) {
                     
                     API_AnagraficaNuovoSingoloRequest cliente = new API_AnagraficaNuovoSingoloRequest()
+                    {
+                        data = new AnagraficaCliente()
+                    
                         {
                             cf = q.FISCALCODE,
-                            piva = q.VAT,
-                            indirizzo_cap = q.ZIPCODE,
-                            indirizzo_citta = q.LOCALITY,
-                            indirizzo_provincia = (q.PROVINCEACRONYM != null ? q.PROVINCEACRONYM : ""),
-                            indirizzo_via = q.ADDRESS,
-                            mail = q.EMAIL,
-                            nome = q.MEMBERNAME,
+                            vat_number = q.VAT,
+                            address_postal_code = q.ZIPCODE,
+                            address_city= q.LOCALITY,
+                            address_province= (q.PROVINCEACRONYM != null ? q.PROVINCEACRONYM : ""),
+                            address_street = q.ADDRESS,
+                            email = q.EMAIL,
+                            name = q.MEMBERNAME,
                             paese_iso = "IT",
                             PA = true, //???
                             PA_codice = "",
-                            tel = q.TELEPHONE,
+                            phone = q.TELEPHONE,
                             termini_pagamento = 30 //TODO: termini di pagamento ?
                                                    //extra = client.IDCLIENT.ToString(),
-                        };
+                        }
+	                        };
 
                     // per i privati, il codice SDI è sempre "0000000"
                     if (string.IsNullOrEmpty(q.VAT))
                     {
-                        cliente.PA_codice = "0000000";
+                        cliente.data.PA_codice = "0000000";
                         modalita_pagamento = "Contanti";
                         isPrivato = true;
                     }
@@ -593,7 +600,7 @@ public class AxFattureConnector
                 iban = "";
                 titolo_pag = "";
             }
-            Api_DocNuovoRequest fattura = new Api_DocNuovoRequest()
+            Api_DocNuovoRequest fattura = new Api_DocNuovoRequest(){ data = new Doc()
             {
                 id_cliente = idAnagrafica,
                 autocompila_anagrafica = true,
@@ -609,11 +616,11 @@ public class AxFattureConnector
                 PA_iban = iban,
                 PA_modalita_pagamento = pa_modalita_pagamento,
                 Numero = bill_head.BILLING_NUM.ToString()
-            };
+            }};
 
 
-            fattura.lista_articoli = new List<ListaArticoli>();
-            fattura.lista_pagamenti = new List<ListaPagamenti>();
+            fattura.data.lista_articoli = new List<ListaArticoli>();
+            fattura.data.lista_pagamenti = new List<ListaPagamenti>();
 
             int nOrd = 0;
 
@@ -672,17 +679,17 @@ public class AxFattureConnector
                 }
 
                 art.Descrizione = strDesc + " - Corso di formazione n." + bill.EDITION_NUM.ToString();
-                fattura.lista_articoli.Add(art);
+                fattura.data.lista_articoli.Add(art);
             }
 
-            fattura.lista_pagamenti.Add(new ListaPagamenti
+            fattura.data.lista_pagamenti.Add(new ListaPagamenti
             {
                 Importo = "auto",
                 Metodo = "not",
                 data_scadenza = bill_head.BILL_DATE,////TODO: cosa ci metto ?
                 data_saldo = bill_head.BILL_DATE, ////TODO:  cosa ci metto?,
             });
-            if (isPrivato) fattura.lista_pagamenti[0].Metodo = "Contanti";
+            if (isPrivato) fattura.data.lista_pagamenti[0].Metodo = "Contanti";
 
 
             //}
@@ -690,7 +697,7 @@ public class AxFattureConnector
             //fattura.lista_pagamenti 
             impostaChiavi(fattura);
 
-            API_DocNuovoResponse newdoc = ApiFattureInCloud.PostFattura(fattura);
+            API_DocNuovoResponse newdoc = ApiFattureInCloud.FatturaNuovo(fattura);
             if (newdoc.success)
             {
                 return newdoc.new_id.ToString();
@@ -709,22 +716,27 @@ public class AxFattureConnector
 
         API_AnagraficaModificaSingoloRequest cliente = new API_AnagraficaModificaSingoloRequest()
         {
+            data = new AnagraficaCliente()
+        
+        {
             id = id,
             cf =("" + client.FISCAL_CODE).Trim(),
-            piva = ("" + client.VATNUMBER).Trim(),
-            indirizzo_cap = client.ZIPCODE,
-            indirizzo_citta = client.LOCALITY,
-            indirizzo_provincia = (client.TREGISTRY_PROVINCE != null ? client.TREGISTRY_PROVINCE.PROVINCEACRONYM : ""),
-            indirizzo_via = client.ADDRESS,
-            mail = email,
-            nome = client.NAME,
+            vat_number = ("" + client.VATNUMBER).Trim(),
+            address_postal_code = client.ZIPCODE,
+            address_city= client.LOCALITY,
+            address_province= (client.TREGISTRY_PROVINCE != null ? client.TREGISTRY_PROVINCE.PROVINCEACRONYM : ""),
+            address_street = client.ADDRESS,
+            email = email,
+            name = client.NAME,
             paese_iso = (client.TREGISTRY_STATE != null ? client.TREGISTRY_STATE.STATECODE : "IT"),
             PA = true, //???
             PA_codice = client.CODICEFATTURAZIONE,
-            tel = client.PHONE1,
+            phone = client.PHONE1,
             termini_pagamento = 30 //TODO: termini di pagamento ?
 
             //extra = client.IDCLIENT.ToString(),
+        }
+
         };
 
         return modificaAnagrafica(cliente);
@@ -739,27 +751,31 @@ public class AxFattureConnector
 
     public bool aggiornaAnagraficaCorso(string id, API_AnagraficaNuovoSingoloRequest client)
     {
-        string email = client.mail;
+        string email = client.data.email;
 
         API_AnagraficaModificaSingoloRequest cliente = new API_AnagraficaModificaSingoloRequest()
         {
-            id = id,
-            cf = ("" + client.cf).Trim(),
-            piva = ("" + client.piva).Trim(),
-            indirizzo_cap = client.indirizzo_cap ,
-            indirizzo_citta = client.indirizzo_citta ,
-            indirizzo_provincia = (client.indirizzo_provincia != null ? client.indirizzo_provincia : ""),
-            indirizzo_via = client.indirizzo_via,
-            mail = email,
-            nome = client.nome,
-            paese_iso = (client.paese_iso != null ? client.paese_iso: "IT"),
-            PA = true, //???
-            PA_codice = client.PA_codice,
-            tel = client.tel,
-            termini_pagamento = 30 //TODO: termini di pagamento ?
+            data = new AnagraficaCliente()
+            {
+	            id = id,
+	            cf = ("" + client.data.cf).Trim(),
+	            vat_number = ("" + client.data.vat_number).Trim(),
+	            address_postal_code = client.data.address_postal_code ,
+	            address_city= client.data.address_city ,
+	            address_province= (client.data.address_province != null ? client.data.address_province: ""),
+	            address_street = client.data.address_street,
+	            email = email,
+	            name = client.data.name,
+	            paese_iso = (client.data.paese_iso != null ? client.data.paese_iso: "IT"),
+	            PA = true, //???
+	            PA_codice = client.data.PA_codice,
+	            phone = client.data.phone,
+	            termini_pagamento = 30 //TODO: termini di pagamento ?
 
-            //extra = client.IDCLIENT.ToString(),
-        };
+	            //extra = client.IDCLIENT.ToString(),
+            }
+        }
+        ;
 
         return modificaAnagrafica(cliente);
 
@@ -873,21 +889,23 @@ MP15 giroconto su conti di contabilità speciale
         API_DocInfoRequest info = new API_DocInfoRequest() { anno = anno };
         impostaChiavi(info);
 
-        API_DocInfoResponse retInfo = ApiFattureInCloud.PostInfoFatture(info);
+        var retInfo = ApiFattureInCloud.FattureInfo(info);
         
         if (retInfo.success)
         {
-            return retInfo.info.numerazioni.FirstOrDefault<KeyValuePair<string,string>>().Value;
+            //return retInfo.info.numerazioni.FirstOrDefault<KeyValuePair<string,string>>().Value;
+            return retInfo.data.First().numeration;
         }
         else
         {
             return retInfo.error;
         }
     }
+
         public static string inviaFatturaTest()
     {
 
-        Api_DocNuovoRequest fattura = new Api_DocNuovoRequest()
+        Api_DocNuovoRequest fattura = new Api_DocNuovoRequest(){ data = new Doc()
         {
             autocompila_anagrafica = true,
             Pa = true,
@@ -903,9 +921,9 @@ MP15 giroconto su conti di contabilità speciale
                  new ListaArticoli {Ordine=2, Categoria = "803003", Codice="30", Descrizione = "Corso Web",Tassabile=true,Quantita=1,prezzo_netto =600}}
                 ,
             lista_pagamenti = new List<ListaPagamenti> {{ new ListaPagamenti { Importo = "auto", Metodo = "not", data_scadenza = DateTime.Now.AddDays(30).ToString("dd/MM/yyyy"), data_saldo = DateTime.Now.AddDays(30).ToString("dd/MM/yyyy")}}}
-        };
+        }};
 
-        API_DocNuovoResponse newdoc = ApiFattureInCloud.PostFattura(fattura);
+        API_DocNuovoResponse newdoc = ApiFattureInCloud.FatturaNuovo(fattura);
         return newdoc.token;
     }
 
