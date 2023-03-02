@@ -114,7 +114,7 @@ public class WsFattureInCloud : System.Web.Services.WebService
         if (clienti.data.Count>0 && fatture.data.Count > 0) {
             foreach (var item in clienti.data)
             {
-                if (!fatture.data.Any(w => w.id_cliente == item.id)) {
+                if (!fatture.data.Any(w => w.id_cliente == item.code)) {
                     clientiSenzaFatture.Add(item);
                 }
             }

@@ -4,6 +4,7 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using System.Net;
 
 // purtroppo l'unico modo per fare il refactoring decentemente era andare con il pessimo flusso architetturale.
 //	ergo è tutto ancora come prima se non per le api
@@ -16,12 +17,17 @@ public static class ApiFattureInCloud
 	public static HttpResponseMessage GET ( string metodo, string bearer, string companyid = null, string parametri = "" )
 	{
 		string url = ApiBase + ( string.IsNullOrEmpty(companyid) ? "" : $"c/{companyid}/" ) + metodo + parametri;
+
 		HttpClient client = new HttpClient();
+		HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
 		{
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearer);
-			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", bearer);
 		}
-		HttpResponseMessage response = client.GetAsync(url).Result;
+
+        HttpResponseMessage response = client.SendAsync(request).Result;
+
+		MyDbUtility.scriviLog(response.Content?.ReadAsStringAsync().Result);
 
 		if ( !response.IsSuccessStatusCode )
 			HttpContext.Current.Response.Write("<p>[" + DateTime.Now + "] - [" + metodo + "] - [" + response.ReasonPhrase + "] - [" + response.RequestMessage + "]</p>");
@@ -51,7 +57,7 @@ public static class ApiFattureInCloud
 
 	#region CLIENTI
 
-	private const string CLIENTI_PATH = "entities/clients/";
+	private const string CLIENTI_PATH = "entities/clients";
 	public static API_AnagraficaListaResponse ClientiLista ( API_AnagraficaListaRequest cliente )
 	{
 
@@ -101,7 +107,7 @@ public static class ApiFattureInCloud
 		API_AnagraficaModificaSingoloResponse result = null;
 		StringContent body = cliente.body();
 
-		HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.id, cliente.api_key, body, cliente.api_uid, true);
+		HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
 
 		if ( response.IsSuccessStatusCode )
 		{
