@@ -24,7 +24,7 @@
           <Property Name="IDCATEGORY" Type="tinyint" Nullable="false" />
           <Property Name="IDCATEGORY_COMPANY" Type="int" Nullable="false" />
           <Property Name="CATEGORY" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="COLOR" Type="nvarchar" MaxLength="7" />
+          <Property Name="COLOR" Type="nvarchar" MaxLength="50" />
           <Property Name="CATEGORY_POS" Type="tinyint" />
           <Property Name="CATEGORY_HIDE" Type="bit" Nullable="false" />
           <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
@@ -67,6 +67,17 @@
           <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
           <Property Name="IDCLIENT_FONDO" Type="smallint" />
           <Property Name="CODICEFATTURAZIONE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CLIENT_CREATEDATE" Type="smalldatetime" />
+          <Property Name="UID" Type="nvarchar" MaxLength="20" />
+          <Property Name="PWD" Type="nvarchar" MaxLength="20" />
+          <Property Name="LOGINDATE" Type="smalldatetime" />
+          <Property Name="ACCESSDATE" Type="smalldatetime" />
+          <Property Name="RESETLOGIN" Type="bit" Nullable="false" />
+          <Property Name="RESETEXPIRY" Type="smalldatetime" />
+          <Property Name="IDTICKET_REFERENT" Type="int" />
+          <Property Name="TICKET_EMAIL" Type="nvarchar" MaxLength="500" />
+          <Property Name="TICKET_APP" Type="bit" Nullable="false" />
+          <Property Name="TICKET_USERAPP" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TCLIENT_ACCOUNTING">
           <Key>
@@ -114,6 +125,10 @@
           <Property Name="BILL_TYPE" Type="nvarchar" MaxLength="10" />
           <Property Name="BILL_RECEIVED" Type="bit" Nullable="false" />
           <Property Name="BILL_IMPORT_RECEIVED" Type="float" />
+          <Property Name="BILL_ACCREDITO" Type="float" />
+          <Property Name="BILL_ACCREDITO_NUM" Type="int" />
+          <Property Name="BILL_ACCREDITO_DATE" Type="smalldatetime" />
+          <Property Name="BILL_ACCREDITO_NOTE" Type="nvarchar(max)" />
           <Property Name="MACRODATE" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TCLIENT_BILL_DETAIL">
@@ -230,6 +245,7 @@
           <Property Name="BANK" Type="nvarchar" MaxLength="50" />
           <Property Name="IBAN" Type="nvarchar" MaxLength="27" />
           <Property Name="MANSIONE" Type="nvarchar" MaxLength="100" />
+          <Property Name="CODICEATECOISCRITTO" Type="nvarchar" MaxLength="100" />
           <Property Name="MEMBERHIDE" Type="bit" Nullable="false" />
           <Property Name="CREATEDATE" Type="smalldatetime" Nullable="false" />
           <Property Name="MODIFYDATE" Type="smalldatetime" Nullable="false" />
@@ -593,7 +609,7 @@
                 <Property Name="DETAIL_NOTE" Type="nvarchar(max)" />
                 <Property Name="BILL_NOTE_PRINT" Type="nvarchar(max)" />
                 <Property Name="DETAIL" Type="nvarchar(max)" />
-                <Property Name="IDACTIVITY_TYPE" Type="smallint" />
+                <Property Name="IDACTIVITY_TYPE" Type="int" />
                 <Property Name="SPESEINCASSO" Type="bit" />
                 <Property Name="SPESEINCASSOVAL" Type="money" />
                 <Property Name="VAT" Type="int" />
@@ -750,7 +766,7 @@
           <Property Name="IDCATEGORY" Type="Byte" Nullable="false" />
           <Property Name="IDCATEGORY_COMPANY" Type="Int32" Nullable="false" />
           <Property Name="CATEGORY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="COLOR" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="COLOR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CATEGORY_HIDE" Type="Boolean" Nullable="false" />
           <Property Name="CREATEDATE" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MODIFYDATE" Type="DateTime" Nullable="false" Precision="0" />
@@ -802,6 +818,17 @@
           <NavigationProperty Name="TCLIENT2" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_TCLIENT" FromRole="TCLIENT1" ToRole="TCLIENT" />
           <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_DATI_FATTURAZIONE_TCLIENT" FromRole="TCLIENT" ToRole="TCLIENT_DATI_FATTURAZIONE" />
           <NavigationProperty Name="TCLIENT_BILL_DETAIL" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_DETAIL_TCLIENT" FromRole="TCLIENT" ToRole="TCLIENT_BILL_DETAIL" />
+          <Property Name="CLIENT_CREATEDATE" Type="DateTime" Precision="0" />
+          <Property Name="UID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PWD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LOGINDATE" Type="DateTime" Precision="0" />
+          <Property Name="ACCESSDATE" Type="DateTime" Precision="0" />
+          <Property Name="RESETLOGIN" Type="Boolean" Nullable="false" />
+          <Property Name="RESETEXPIRY" Type="DateTime" Precision="0" />
+          <Property Name="IDTICKET_REFERENT" Type="Int32" />
+          <Property Name="TICKET_EMAIL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TICKET_APP" Type="Boolean" Nullable="false" />
+          <Property Name="TICKET_USERAPP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EntitiesGestisco" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TACTIVITY_TYPE" EntityType="Self.TACTIVITY_TYPE" />
@@ -991,6 +1018,10 @@
           <NavigationProperty Name="TCLIENT" Relationship="GESTISCO.CONSULAREAModel.TCLIENT_BILLTCLIENT" FromRole="TCLIENT_BILL" ToRole="TCLIENT" />
           <Property Name="IDBILL_DATI_FATTURAZIONE" Type="Int32" />
           <NavigationProperty Name="TCLIENT_DATI_FATTURAZIONE" Relationship="GESTISCO.CONSULAREAModel.FK_TCLIENT_BILL_TCLIENT_DATI_FATTURAZIONE" FromRole="TCLIENT_BILL" ToRole="TCLIENT_DATI_FATTURAZIONE" />
+          <Property Name="BILL_ACCREDITO" Type="Double" />
+          <Property Name="BILL_ACCREDITO_NUM" Type="Int32" />
+          <Property Name="BILL_ACCREDITO_DATE" Type="DateTime" Precision="0" />
+          <Property Name="BILL_ACCREDITO_NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TCLIENT_BILL_DETAIL">
           <Key>
@@ -1318,6 +1349,7 @@
           <Property Name="MODIFYDATE" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="TCOURSE_EDITION_MEMBER" Relationship="GESTISCO.CONSULAREAModel.FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER" FromRole="TCOURSE_MEMBER" ToRole="TCOURSE_EDITION_MEMBER" />
           <NavigationProperty Name="TREGISTRY_PROVINCE" Relationship="GESTISCO.CONSULAREAModel.TCOURSE_MEMBERTREGISTRY_PROVINCE" FromRole="TCOURSE_MEMBER" ToRole="TREGISTRY_PROVINCE" />
+          <Property Name="CODICEATECOISCRITTO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_TCOURSE_EDITION_MEMBER_TCOURSE_MEMBER">
           <End Type="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER" Role="TCOURSE_MEMBER" Multiplicity="1" />
@@ -1556,6 +1588,17 @@
           <EntitySetMapping Name="TCLIENT">
             <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT">
               <MappingFragment StoreEntitySet="TCLIENT">
+                <ScalarProperty Name="TICKET_USERAPP" ColumnName="TICKET_USERAPP" />
+                <ScalarProperty Name="TICKET_APP" ColumnName="TICKET_APP" />
+                <ScalarProperty Name="TICKET_EMAIL" ColumnName="TICKET_EMAIL" />
+                <ScalarProperty Name="IDTICKET_REFERENT" ColumnName="IDTICKET_REFERENT" />
+                <ScalarProperty Name="RESETEXPIRY" ColumnName="RESETEXPIRY" />
+                <ScalarProperty Name="RESETLOGIN" ColumnName="RESETLOGIN" />
+                <ScalarProperty Name="ACCESSDATE" ColumnName="ACCESSDATE" />
+                <ScalarProperty Name="LOGINDATE" ColumnName="LOGINDATE" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="CLIENT_CREATEDATE" ColumnName="CLIENT_CREATEDATE" />
                 <ScalarProperty Name="IDCLIENT" ColumnName="IDCLIENT" />
                 <ScalarProperty Name="IDCLIENT_CORPORATE" ColumnName="IDCLIENT_CORPORATE" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
@@ -1615,6 +1658,10 @@
           <EntitySetMapping Name="TCLIENT_BILL">
             <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCLIENT_BILL">
               <MappingFragment StoreEntitySet="TCLIENT_BILL">
+                <ScalarProperty Name="BILL_ACCREDITO_NOTE" ColumnName="BILL_ACCREDITO_NOTE" />
+                <ScalarProperty Name="BILL_ACCREDITO_DATE" ColumnName="BILL_ACCREDITO_DATE" />
+                <ScalarProperty Name="BILL_ACCREDITO_NUM" ColumnName="BILL_ACCREDITO_NUM" />
+                <ScalarProperty Name="BILL_ACCREDITO" ColumnName="BILL_ACCREDITO" />
                 <ScalarProperty Name="IDBILL_DATI_FATTURAZIONE" ColumnName="IDBILL_DATI_FATTURAZIONE" />
                 <ScalarProperty Name="MACRODATE" ColumnName="MACRODATE" />
                 <ScalarProperty Name="BILL_IMPORT_RECEIVED" ColumnName="BILL_IMPORT_RECEIVED" />
@@ -1830,6 +1877,7 @@
           <EntitySetMapping Name="TCOURSE_MEMBER">
             <EntityTypeMapping TypeName="GESTISCO.CONSULAREAModel.TCOURSE_MEMBER">
               <MappingFragment StoreEntitySet="TCOURSE_MEMBER">
+                <ScalarProperty Name="CODICEATECOISCRITTO" ColumnName="CODICEATECOISCRITTO" />
                 <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
                 <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
                 <ScalarProperty Name="MEMBERHIDE" ColumnName="MEMBERHIDE" />
@@ -1912,7 +1960,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Predefinito" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

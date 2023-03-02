@@ -98,6 +98,17 @@ public partial class TCLIENT
     public System.DateTime MACRODATE { get; set; }
     public Nullable<short> IDCLIENT_FONDO { get; set; }
     public string CODICEFATTURAZIONE { get; set; }
+    public Nullable<System.DateTime> CLIENT_CREATEDATE { get; set; }
+    public string UID { get; set; }
+    public string PWD { get; set; }
+    public Nullable<System.DateTime> LOGINDATE { get; set; }
+    public Nullable<System.DateTime> ACCESSDATE { get; set; }
+    public bool RESETLOGIN { get; set; }
+    public Nullable<System.DateTime> RESETEXPIRY { get; set; }
+    public Nullable<int> IDTICKET_REFERENT { get; set; }
+    public string TICKET_EMAIL { get; set; }
+    public bool TICKET_APP { get; set; }
+    public string TICKET_USERAPP { get; set; }
 
     public virtual TREGISTRY_PROVINCE TREGISTRY_PROVINCE { get; set; }
     public virtual TREGISTRY_STATE TREGISTRY_STATE { get; set; }
@@ -160,6 +171,10 @@ public partial class TCLIENT_BILL
     public Nullable<double> BILL_IMPORT_RECEIVED { get; set; }
     public System.DateTime MACRODATE { get; set; }
     public Nullable<int> IDBILL_DATI_FATTURAZIONE { get; set; }
+    public Nullable<double> BILL_ACCREDITO { get; set; }
+    public Nullable<int> BILL_ACCREDITO_NUM { get; set; }
+    public Nullable<System.DateTime> BILL_ACCREDITO_DATE { get; set; }
+    public string BILL_ACCREDITO_NOTE { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<TCLIENT_BILL_DETAIL> TCLIENT_BILL_DETAIL { get; set; }
@@ -310,6 +325,7 @@ public partial class TCOURSE_MEMBER
     public bool MEMBERHIDE { get; set; }
     public System.DateTime CREATEDATE { get; set; }
     public System.DateTime MODIFYDATE { get; set; }
+    public string CODICEATECOISCRITTO { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<TCOURSE_EDITION_MEMBER> TCOURSE_EDITION_MEMBER { get; set; }
