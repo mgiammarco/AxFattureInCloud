@@ -180,28 +180,31 @@ public class API_AnagraficaListaResponse : api_generic_response
 
 public class AnagraficaCliente
 {
-	public string id { get; set; }//(string) : Identificativo univoco del cliente,
+	public string code { get; set; }//(string) : Identificativo univoco del cliente,
 	public string name { get; set; }// (string): Nome o ragione sociale del cliente,
 	//public string referente { get; set; }// (string): Nome referente,
 	public string address_street { get; set; }// (string): Indirizzo del cliente,
 	public string address_postal_code { get; set; }//(string) : CAP del cliente,
 	public string address_city { get; set; }//(string) : Città(comune) del cliente,
 	public string address_province { get; set; }// (string): Provincia del cliente,
-	public string address_extra { get; set; }//(string, opzionale) : Note extra sull'indirizzo,
-	public string country { get; set; }//{ get; set; }//(string) : Paese(nazionalità) del cliente,
+	//public string address_extra { get; set; }//(string, opzionale) : Note extra sull'indirizzo,
+	//public string country { get; set; }//{ get; set; }//(string) : Paese(nazionalità) del cliente,
 	public string email { get; set; }//(string): Indirizzo di posta elettronica,
 	public string phone { get; set; }// (string): Recapito telefonico,
-	public string paese_iso { get; set; }
-	public string fax { get; set; }// (string): Numero fax,
+	//public string paese_iso { get; set; }
+//	public string fax { get; set; }// (string): Numero fax,
 	public string vat_number { get; set; }// (string): Partita IVA,
-	public string cf { get; set; }//(string): Codice fiscale,
-	public int termini_pagamento { get; set; }// (integer): Termini di pagamento predefiniti(giorni a partire dalla data del documento),
-	public bool pagamento_fine_mese { get; set; }//(boolean) : Indica se la scadenza del pagamento deve avvenire alla fine del mese(dopo i giorni specificati in 'termini_pagamento'),
-	public double? val_iva_default { get; set; }//(double) : Valore IVA predefinito,
-	public string desc_iva_default { get; set; }//(string) : Descrizione IVA,
-	public string extra { get; set; }//(string): Informazioni extra sul cliente,
-	public bool PA { get; set; }//(boolean): Indica se il cliente è una pubblica amministrazione,
-	public string PA_codice { get; set; }//(string, opzionale): [Solo se PA=true] Codice pubblica amministrazione
+	//????
+	public string tax_code { get; set; }//(string): Codice fiscale,
+
+	//public int termini_pagamento { get; set; }// (integer): Termini di pagamento predefiniti(giorni a partire dalla data del documento),
+	//public bool pagamento_fine_mese { get; set; }//(boolean) : Indica se la scadenza del pagamento deve avvenire alla fine del mese(dopo i giorni specificati in 'termini_pagamento'),
+	//public double? val_iva_default { get; set; }//(double) : Valore IVA predefinito,
+	//public string desc_iva_default { get; set; }//(string) : Descrizione IVA,
+	//public string extra { get; set; }//(string): Informazioni extra sul cliente,
+
+	//public bool PA { get; set; }//(boolean): Indica se il cliente è una pubblica amministrazione,
+	//public string PA_codice { get; set; }//(string, opzionale): [Solo se PA=true] Codice pubblica amministrazione
 }
 
 public class API_AnagraficaNuovoSingoloRequest : api_generic_request

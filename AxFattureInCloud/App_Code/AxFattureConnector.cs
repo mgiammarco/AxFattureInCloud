@@ -37,7 +37,7 @@ public class AxFattureConnector
         API_AnagraficaListaResponse RES = ApiFattureInCloud.ClientiLista(filtro);
         if (RES.success && RES.data.Count > 0)
         {
-            idCliente = RES.data[0].id;
+            idCliente = RES.data[0].code;
             return true;
         }
         else
@@ -120,10 +120,10 @@ public class AxFattureConnector
 
     public string EsportaAnagraficaCorso(API_AnagraficaNuovoSingoloRequest client)
     {
-        if (client != null && (client.data.vat_number != "" || client.data.cf != ""))
+        if (client != null && (client.data.vat_number != "" || client.data.tax_code != ""))
         {
             string idAnagrafica = "";
-            if (!trovaAnagrafica(client.data.vat_number.Trim(), client.data.cf.Trim(), out idAnagrafica))
+            if (!trovaAnagrafica(client.data.vat_number.Trim(), client.data.tax_code.Trim(), out idAnagrafica))
             {
                 idAnagrafica = inviaAnagrafica(client);
                 return idAnagrafica;
@@ -181,19 +181,19 @@ public class AxFattureConnector
         {
             data = new AnagraficaCliente()
             {
-	            cf = (""+client.FISCAL_CODE).Trim(),
+	            tax_code = (""+client.FISCAL_CODE).Trim(),
 	            vat_number = (""+client.VATNUMBER).Trim() ,
 	            address_postal_code = client.ZIPCODE,
 	            address_city = client.LOCALITY,
 	            address_province = (client.TREGISTRY_PROVINCE!=null?client.TREGISTRY_PROVINCE.PROVINCEACRONYM:""),
 	            address_street = client.ADDRESS,
 	            email = email, /*client.EMAIL,*/
-	            name = client.NAME,
-	            paese_iso =(client.TREGISTRY_STATE!=null?client.TREGISTRY_STATE.STATECODE:"IT"),
-	            PA = true, //???
-	            PA_codice = client.CODICEFATTURAZIONE,
-	            phone = client.PHONE1,
-	            termini_pagamento = 30 //TODO: termini di pagamento ?
+	            name = client.NAME
+	            //paese_iso =(client.TREGISTRY_STATE!=null?client.TREGISTRY_STATE.STATECODE:"IT"),
+	            //PA = true, //???
+	            //PA_codice = client.CODICEFATTURAZIONE,
+	            //phone = client.PHONE1,
+	            //termini_pagamento = 30 //TODO: termini di pagamento ?
 	            , 
 	            //extra = client.IDCLIENT.ToString(),
 	        }
@@ -217,17 +217,17 @@ public class AxFattureConnector
         {
 			data = new AnagraficaCliente()
 			{
-	            cf = "SMAMRC82T07C573Y",
+	            tax_code = "SMAMRC82T07C573Y",
 	            address_postal_code = "47521",
 	            address_city= "Forlì",
 	            address_province= "FC",
 	            address_street = "Via antonio meucci 31",
 	            email = "msama@axterisco.it",
-	            name = "Marco Sama",
-	            paese_iso = "IT",
-	            PA = false,
-	            phone = "348123456",
-	            termini_pagamento = 30
+	            name = "Marco Sama"
+	            //paese_iso = "IT",
+	            //PA = false,
+	            //phone = "348123456",
+	            //termini_pagamento = 30
 	        }
         };
         API_AnagraficaNuovoSingoloResponse clientesalvato = ApiFattureInCloud.ClienteNuovo(cliente);
@@ -520,19 +520,19 @@ public class AxFattureConnector
                         data = new AnagraficaCliente()
                     
                         {
-                            cf = q.FISCALCODE,
+                            tax_code = q.FISCALCODE,
                             vat_number = q.VAT,
                             address_postal_code = q.ZIPCODE,
                             address_city= q.LOCALITY,
                             address_province= (q.PROVINCEACRONYM != null ? q.PROVINCEACRONYM : ""),
                             address_street = q.ADDRESS,
                             email = q.EMAIL,
-                            name = q.MEMBERNAME,
-                            paese_iso = "IT",
-                            PA = true, //???
-                            PA_codice = "",
-                            phone = q.TELEPHONE,
-                            termini_pagamento = 30 //TODO: termini di pagamento ?
+                            name = q.MEMBERNAME
+                            //paese_iso = "IT",
+                            //PA = true, //???
+                            //PA_codice = "",
+                            //phone = q.TELEPHONE,
+                            //termini_pagamento = 30 //TODO: termini di pagamento ?
                                                    //extra = client.IDCLIENT.ToString(),
                         }
 	                        };
@@ -540,7 +540,7 @@ public class AxFattureConnector
                     // per i privati, il codice SDI è sempre "0000000"
                     if (string.IsNullOrEmpty(q.VAT))
                     {
-                        cliente.data.PA_codice = "0000000";
+                        //cliente.data.PA_codice = "0000000";
                         modalita_pagamento = "Contanti";
                         isPrivato = true;
                     }
@@ -719,20 +719,20 @@ public class AxFattureConnector
             data = new AnagraficaCliente()
         
         {
-            id = id,
-            cf =("" + client.FISCAL_CODE).Trim(),
+            code = id,
+            tax_code =("" + client.FISCAL_CODE).Trim(),
             vat_number = ("" + client.VATNUMBER).Trim(),
             address_postal_code = client.ZIPCODE,
             address_city= client.LOCALITY,
             address_province= (client.TREGISTRY_PROVINCE != null ? client.TREGISTRY_PROVINCE.PROVINCEACRONYM : ""),
             address_street = client.ADDRESS,
             email = email,
-            name = client.NAME,
-            paese_iso = (client.TREGISTRY_STATE != null ? client.TREGISTRY_STATE.STATECODE : "IT"),
-            PA = true, //???
-            PA_codice = client.CODICEFATTURAZIONE,
-            phone = client.PHONE1,
-            termini_pagamento = 30 //TODO: termini di pagamento ?
+            name = client.NAME
+            //paese_iso = (client.TREGISTRY_STATE != null ? client.TREGISTRY_STATE.STATECODE : "IT"),
+            //PA = true, //???
+            //PA_codice = client.CODICEFATTURAZIONE,
+            //phone = client.PHONE1,
+            //termini_pagamento = 30 //TODO: termini di pagamento ?
 
             //extra = client.IDCLIENT.ToString(),
         }
@@ -757,20 +757,20 @@ public class AxFattureConnector
         {
             data = new AnagraficaCliente()
             {
-	            id = id,
-	            cf = ("" + client.data.cf).Trim(),
+	            code = id,
+	            tax_code = ("" + client.data.tax_code).Trim(),
 	            vat_number = ("" + client.data.vat_number).Trim(),
 	            address_postal_code = client.data.address_postal_code ,
 	            address_city= client.data.address_city ,
 	            address_province= (client.data.address_province != null ? client.data.address_province: ""),
 	            address_street = client.data.address_street,
 	            email = email,
-	            name = client.data.name,
-	            paese_iso = (client.data.paese_iso != null ? client.data.paese_iso: "IT"),
-	            PA = true, //???
-	            PA_codice = client.data.PA_codice,
-	            phone = client.data.phone,
-	            termini_pagamento = 30 //TODO: termini di pagamento ?
+	            name = client.data.name
+	            //paese_iso = (client.data.paese_iso != null ? client.data.paese_iso: "IT"),
+	            //PA = true, //???
+	            //PA_codice = client.data.PA_codice,
+	            //phone = client.data.phone,
+	            //termini_pagamento = 30 //TODO: termini di pagamento ?
 
 	            //extra = client.IDCLIENT.ToString(),
             }
