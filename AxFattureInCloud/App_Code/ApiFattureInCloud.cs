@@ -4,6 +4,8 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using It.FattureInCloud.Sdk.Model;
+using System.Collections.Generic;
 
 // purtroppo l'unico modo per fare il refactoring decentemente era andare con il pessimo flusso architetturale.
 //	ergo è tutto ancora come prima se non per le api
@@ -126,7 +128,80 @@ public static class ApiFattureInCloud
 	{
 		API_DocNuovoResponse result = null;
 
-		StringContent body = fattura.body();
+        Entity entity = new Entity(
+           id: 1,
+           name: fattura.data.Nome,
+           vatNumber: fattura.data.Piva,
+           taxCode: fattura.data.cf,
+           addressStreet: fattura.data.indirizzo_via,
+           addressPostalCode: fattura.data.indirizzo_cap,
+           addressCity: fattura.data.indirizzo_citta,
+           addressProvince: fattura.data.indirizzo_provincia,
+           country: "Italia"
+       );
+
+
+		var itemList = new List<IssuedDocumentItemsListItem>;
+		var paymentsList = new List<IssuedDocumentPaymentsListItem>
+		ListaArticoli la;
+		ListaPagamenti lp;
+		// aggiungere ciclo for
+
+
+		new IssuedDocumentItemsListItem(
+			productId: la.Id,
+			code: la.Codice,
+			name: la.Nome,
+			netPrice: la.prezzo_netto,
+			category: la.Categoria,
+			discount: la.Sconto,
+			qty: la.Quantita,
+			vat: new VatType(
+				id: 0
+			)
+		);
+
+		// anche questa è una lista va fatto un ciclo for
+
+        new IssuedDocumentPaymentsListItem(
+            amount: lp.Importo,
+            dueDate: lp.data_scadenza,
+            paidDate: lp.data_saldo,
+            status: lp.   //IssuedDocumentStatus.Paid,
+            // List your payment accounts: https://github.com/fattureincloud/fattureincloud-csharp-sdk/blob/master/docs/InfoApi.md#listPaymentAccounts
+            paymentAccount: new PaymentAccount(
+                id: 110
+            )
+        )
+
+		
+
+        IssuedDocument invoice = new IssuedDocument(
+			type: IssuedDocumentType.Invoice,
+			entity: entity,
+			date: fattura.data.Data,
+			number: fattura.data.Numero,
+			numeration: "/fatt",
+			subject: fattura.data.oggetto_interno,
+			visibleSubject: fattura.data.oggetto_visibile,
+			currency: new Currency(
+				id: "EUR"
+			),
+			language: new Language(
+				code: "it",
+				name: "italiano"
+			),
+			itemsList: itemList,
+			paymentsList: paymentsList,
+			// Here we set e_invoice and ei_data
+			eInvoice: true,
+			eiData: new IssuedDocumentEiData(
+				paymentMethod: "MP05"
+			)
+		);
+
+
+        StringContent body = fattura.body();
 		//POST("fatture/nuovo", body);
 		HttpResponseMessage response = POST("issued_documents", fattura.api_key, body, fattura.api_uid);
 		if ( response.IsSuccessStatusCode )
@@ -153,9 +228,12 @@ public static class ApiFattureInCloud
 	{
 		API_FatturaListaResponse result = null;
 		StringContent body = fattura.body();
-		//POST("fatture/lista", body);
+        //POST("fatture/lista", body);
 
-		HttpResponseMessage response = GET("issued_documents", fattura.api_key, fattura.api_uid, "?type=invoice");
+       
+
+
+        HttpResponseMessage response = GET("issued_documents", fattura.api_key, fattura.api_uid, "?type=invoice");
 
 		if ( response.IsSuccessStatusCode )
 		{
