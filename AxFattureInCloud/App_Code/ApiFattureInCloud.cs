@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using It.FattureInCloud.Sdk.Model;
 using System.Net;
+using System.Data.Entity.Infrastructure;
+using System.Text;
 
 // purtroppo l'unico modo per fare il refactoring decentemente era andare con il pessimo flusso architetturale.
 //	ergo è tutto ancora come prima se non per le api
@@ -51,7 +53,7 @@ public static class ApiFattureInCloud
 		HttpResponseMessage response = (put ? client.PutAsync(url,body) : client.PostAsync(url,body)).Result;
 
 		if ( !response.IsSuccessStatusCode )
-			HttpContext.Current.Response.Write("<p>[" + DateTime.Now + "] - [" + metodo + "] - [" + response.ReasonPhrase + "] - [" + response.RequestMessage + "]</p>");
+			HttpContext.Current.Response.Write("<p>[" + DateTime.Now + "] - [" + metodo + "] - [" + response.ReasonPhrase + "] - [" + response.Content.ReadAsStringAsync().Result + "]</p>");
 	
 		return response;
 	}
@@ -66,13 +68,15 @@ public static class ApiFattureInCloud
 		API_AnagraficaListaResponse result = null;
 		StringContent body = cliente.body();
 		//POST("clienti/lista", body);
-		HttpResponseMessage response = GET(CLIENTI_PATH, cliente.api_key, cliente.api_uid);
+		HttpResponseMessage response = GET(CLIENTI_PATH, cliente.api_key, cliente.api_uid, 
+			$"?q=vat_number%20%3D%20%27{cliente.piva}%27");
 		if ( response.IsSuccessStatusCode )
 		{
 			var risposta = response.Content.ReadAsStringAsync();
 			string json = risposta.Result;
 			MyDbUtility.scriviLog(json);
 			result = JsonConvert.DeserializeObject<API_AnagraficaListaResponse>(json);
+			result.success = true;
 		}
 		else
 		{
@@ -135,7 +139,7 @@ public static class ApiFattureInCloud
 		API_DocNuovoResponse result = null;
 
 		Entity entity = new Entity(
-		   id: 1,
+		   id: int.Parse( fattura.data.id_cliente ),
 		   name: fattura.data.Nome,
 		   vatNumber: fattura.data.Piva,
 		   taxCode: fattura.data.Cf,
@@ -156,13 +160,14 @@ public static class ApiFattureInCloud
                 productId: (int?)la.Id, // Nella logica precedente è un Long, quando nel tipo nuovo è un int, dipende dai valori, ma è rischioso a causa di overflow
                 code: la.Codice,
                 name: la.Nome,
-                netPrice: Convert.ToDecimal( la.prezzo_netto),
+                //netPrice: ,
+				grossPrice: Convert.ToDecimal(la.prezzo_netto),
                 category: la.Categoria,
                 discount: Convert.ToDecimal( la.Sconto),
-                qty: Convert.ToDecimal( la.Quantita),
-                vat: new VatType(
-                    id: Convert.ToInt32(la.cod_iva)
-                )
+                qty: Convert.ToDecimal( la.Quantita)
+                //vat: new VatType(
+                //    id: Convert.ToInt32(la.cod_iva)
+                //)
             ));
         }
 		
@@ -202,10 +207,16 @@ public static class ApiFattureInCloud
 			eiData: new IssuedDocumentEiData(
 				paymentMethod: "MP05"
 			)
-		);
+		)
+		{
+			UseGrossPrices = true
+		};
 
+		var dict = new Dictionary<string, object>();
+		dict.Add("data", invoice);
+		var jsonstr = JsonConvert.SerializeObject(dict);
+        StringContent body = new StringContent(jsonstr, Encoding.UTF8, "application/json");
 
-		StringContent body = fattura.body();
 
 		//POST("fatture/nuovo", body);
 		HttpResponseMessage response = POST("issued_documents", fattura.api_key, body, fattura.api_uid);

@@ -37,7 +37,8 @@ public class AxFattureConnector
         API_AnagraficaListaResponse RES = ApiFattureInCloud.ClientiLista(filtro);
         if (RES.success && RES.data.Count > 0)
         {
-            idCliente = RES.data[0].code;
+            //idCliente = RES.data[0].code;
+            idCliente = RES.data[0].id;
             return true;
         }
         else
@@ -437,7 +438,7 @@ public class AxFattureConnector
 
         fattura.data.lista_pagamenti.Add(new ListaPagamenti
         {
-            Importo = "auto",
+            Importo = billHead.BILL_IMPORT.ToString(),
             Metodo = "not",
             data_scadenza = billHead.BILL_DATE.ToString("dd/MM/yyyy"),////TODO: cosa ci metto ?
             data_saldo = billHead.BILL_DATE.ToString("dd/MM/yyyy") ////TODO:  cosa ci metto?
@@ -712,6 +713,8 @@ public class AxFattureConnector
 
     public bool aggiornaAnagrafica(string id, TCLIENT client)
     {
+        return true; //TODO temporaneamente disabilitato, da verificare successivamente
+
         string email = getEmail(client.EMAIL3, client.EMAIL, client.EMAIL2);
 
         API_AnagraficaModificaSingoloRequest cliente = new API_AnagraficaModificaSingoloRequest()
