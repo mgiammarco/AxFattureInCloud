@@ -3,7 +3,9 @@ using System.Configuration;
 using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using It.FattureInCloud.Sdk.Model;
 using System.Net;
 
 // purtroppo l'unico modo per fare il refactoring decentemente era andare con il pessimo flusso architetturale.
@@ -132,18 +134,106 @@ public static class ApiFattureInCloud
 	{
 		API_DocNuovoResponse result = null;
 
+		Entity entity = new Entity(
+		   id: 1,
+		   name: fattura.data.Nome,
+		   vatNumber: fattura.data.Piva,
+		   taxCode: fattura.data.Cf,
+		   addressStreet: fattura.data.indirizzo_via,
+		   addressPostalCode: fattura.data.indirizzo_cap.ToString(),
+		   addressCity: fattura.data.indirizzo_citta,
+		   addressProvince: fattura.data.indirizzo_provincia,
+		   country: "Italia"
+	   );
+
+
+		var itemList = new List<IssuedDocumentItemsListItem>();
+        var paymentsList = new List<IssuedDocumentPaymentsListItem>();
+
+        foreach (var la in fattura.data.lista_articoli)
+        {
+            itemList.Add(new IssuedDocumentItemsListItem(
+                productId: (int?)la.Id, // Nella logica precedente è un Long, quando nel tipo nuovo è un int, dipende dai valori, ma è rischioso a causa di overflow
+                code: la.Codice,
+                name: la.Nome,
+                netPrice: Convert.ToDecimal( la.prezzo_netto),
+                category: la.Categoria,
+                discount: Convert.ToDecimal( la.Sconto),
+                qty: Convert.ToDecimal( la.Quantita),
+                vat: new VatType(
+                    id: Convert.ToInt32(la.cod_iva)
+                )
+            ));
+        }
+		
+        foreach (var lp in fattura.data.lista_pagamenti)
+        {
+            paymentsList.Add(new IssuedDocumentPaymentsListItem(
+                amount: decimal.Parse(lp.Importo),
+                dueDate: DateTime.Parse(lp.data_scadenza),
+                paidDate: DateTime.Parse(lp.data_saldo),
+                status: IssuedDocumentStatus.NotPaid
+			));
+                // List your payment accounts: https://github.com/fattureincloud/fattureincloud-csharp-sdk/blob/master/docs/InfoApi.md#listPaymentAccounts
+                //paymentAccount: new PaymentAccount(id: 110)));
+        }
+		
+		
+
+		IssuedDocument invoice = new IssuedDocument(
+			type: IssuedDocumentType.Invoice,
+			entity: entity,
+			date: DateTime.Parse( fattura.data.Data),
+			number: int.Parse(fattura.data.Numero),
+			numeration: "/fatt",
+			subject: fattura.data.oggetto_interno,
+			visibleSubject: fattura.data.oggetto_visibile,
+			currency: new Currency(
+				id: "EUR"
+			),
+			language: new Language(
+				code: "it",
+				name: "italiano"
+			),
+			itemsList: itemList,
+			paymentsList: paymentsList,
+			// Here we set e_invoice and ei_data
+			eInvoice: true,
+			eiData: new IssuedDocumentEiData(
+				paymentMethod: "MP05"
+			)
+		);
+
+
 		StringContent body = fattura.body();
+
 		//POST("fatture/nuovo", body);
 		HttpResponseMessage response = POST("issued_documents", fattura.api_key, body, fattura.api_uid);
-		if ( response.IsSuccessStatusCode )
+		string json  = response.Content.ReadAsStringAsync().Result;
+
+        
+		if (response.IsSuccessStatusCode)
 		{
-			var risposta = response.Content.ReadAsStringAsync();
-			string json = risposta.Result;
 			MyDbUtility.scriviLog(json);
-			result = JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
+			var resultFromApi = JsonConvert.DeserializeObject<CreateIssuedDocumentResponse>(json);
+
+			result = new API_DocNuovoResponse()
+			{
+				new_id = resultFromApi.Data.Id.Value,
+				success = true
+				 
+			};
+			//JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
 		}
 		else
 		{
+
+			result = new API_DocNuovoResponse()
+			{
+				error = response.StatusCode.ToString(),
+				success = false
+                
+			};
 			MyDbUtility.scriviLog(response.ReasonPhrase);
 			//HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
 		}
@@ -159,9 +249,10 @@ public static class ApiFattureInCloud
 	{
 		API_FatturaListaResponse result = null;
 		StringContent body = fattura.body();
-		//POST("fatture/lista", body);
+        //POST("fatture/lista", body);
 
-		HttpResponseMessage response = GET("issued_documents", fattura.api_key, fattura.api_uid, "?type=invoice");
+       
+        HttpResponseMessage response = GET("issued_documents", fattura.api_key, fattura.api_uid, "?type=invoice");
 
 		if ( response.IsSuccessStatusCode )
 		{
