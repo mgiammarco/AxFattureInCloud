@@ -155,7 +155,7 @@ public static class ApiFattureInCloud
                 discount: Convert.ToDecimal( la.Sconto),
                 qty: Convert.ToDecimal( la.Quantita),
                 vat: new VatType(
-                    id: 0
+                    id: Convert.ToInt32(la.cod_iva)
                 )
             ));
         }
@@ -166,9 +166,10 @@ public static class ApiFattureInCloud
                 amount: decimal.Parse(lp.Importo),
                 dueDate: DateTime.Parse(lp.data_scadenza),
                 paidDate: DateTime.Parse(lp.data_saldo),
-                status: lp., //IssuedDocumentStatus.Paid, 
+                status: IssuedDocumentStatus.NotPaid
+			));
                 // List your payment accounts: https://github.com/fattureincloud/fattureincloud-csharp-sdk/blob/master/docs/InfoApi.md#listPaymentAccounts
-                paymentAccount: new PaymentAccount(id: 110)));
+                //paymentAccount: new PaymentAccount(id: 110)));
         }
 		
 		
@@ -202,15 +203,31 @@ public static class ApiFattureInCloud
 
 		//POST("fatture/nuovo", body);
 		HttpResponseMessage response = POST("issued_documents", fattura.api_key, body, fattura.api_uid);
+		string json  = response.Content.ReadAsStringAsync().Result;
+
+        
 		if (response.IsSuccessStatusCode)
 		{
-			var risposta = response.Content.ReadAsStringAsync();
-			string json = risposta.Result;
 			MyDbUtility.scriviLog(json);
-			result = JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
+			var resultFromApi = JsonConvert.DeserializeObject<CreateIssuedDocumentResponse>(json);
+
+			result = new API_DocNuovoResponse()
+			{
+				new_id = resultFromApi.Data.Id.Value,
+				success = true
+				 
+			};
+			//JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
 		}
 		else
 		{
+
+			result = new API_DocNuovoResponse()
+			{
+				error = response.StatusCode.ToString(),
+				success = false
+                
+			};
 			MyDbUtility.scriviLog(response.ReasonPhrase);
 			//HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
 		}
