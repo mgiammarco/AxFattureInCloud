@@ -180,6 +180,7 @@ public class API_AnagraficaListaResponse : api_generic_response
 
 public class AnagraficaCliente
 {
+	public string id { get; set; }
 	public string code { get; set; }//(string) : Identificativo univoco del cliente,
 	public string name { get; set; }// (string): Nome o ragione sociale del cliente,
 	//public string referente { get; set; }// (string): Nome referente,
