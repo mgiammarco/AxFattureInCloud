@@ -67,9 +67,12 @@ public static class ApiFattureInCloud
 
 
 
-		API_AnagraficaListaResponse result = null;
+        API_AnagraficaListaResponse result = new API_AnagraficaListaResponse();
+		List<AnagraficaCliente> lcv = new List<AnagraficaCliente>();
+		result.data = lcv;
 		StringContent body = cliente.body();
 		//POST("clienti/lista", body);
+		//TODO siamo sicuri che sia l'unica query di cui abbiamo bisogno?
 		HttpResponseMessage response = GET(CLIENTI_PATH, cliente.api_key, cliente.api_uid, 
 			$"?q=vat_number%20%3D%20%27{cliente.piva}%27");
 		if ( response.IsSuccessStatusCode )
@@ -77,7 +80,26 @@ public static class ApiFattureInCloud
 			var risposta = response.Content.ReadAsStringAsync();
 			string json = risposta.Result;
 			MyDbUtility.scriviLog(json);
-			result = JsonConvert.DeserializeObject<API_AnagraficaListaResponse>(json);
+			ListClientsResponse newResult = JsonConvert.DeserializeObject<ListClientsResponse>(json);
+			
+			foreach(var cn in newResult.Data)
+			{
+				AnagraficaCliente cv = new AnagraficaCliente();
+				lcv.Add(cv);
+				//TODO serve? cv.id = cn.Id;
+				cv.name=cn.Name;
+				cv.address_street=cn.AddressStreet;
+				cv.address_postal_code = cn.AddressPostalCode;
+				cv.address_city= cn.AddressCity;	
+				cv.address_province=cn.AddressProvince;
+				cv.email=cn.Email;
+				cv.phone=cn.Phone;	
+				cv.vat_number=cn.VatNumber;
+				cv.tax_code=cn.TaxCode;	
+
+
+			}
+
 			result.success = true;
 		}
 		else
@@ -142,8 +164,9 @@ public static class ApiFattureInCloud
 
         API_AnagraficaModificaSingoloResponse result = null;
 		StringContent body = cliente.body();
+        //TODO la response la lascio a voi che ho visto che avete fatto un lavoro sofisticato
 
-		HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
+        HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
 
 		if ( response.IsSuccessStatusCode )
 		{
