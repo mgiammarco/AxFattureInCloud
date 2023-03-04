@@ -63,6 +63,8 @@ public static class ApiFattureInCloud
 	public static API_AnagraficaListaResponse ClientiLista ( API_AnagraficaListaRequest cliente )
 	{
 
+
+
 		API_AnagraficaListaResponse result = null;
 		StringContent body = cliente.body();
 		//POST("clienti/lista", body);
@@ -85,8 +87,22 @@ public static class ApiFattureInCloud
 
 	public static API_AnagraficaNuovoSingoloResponse ClienteNuovo ( API_AnagraficaNuovoSingoloRequest cliente )
 	{
-		API_AnagraficaNuovoSingoloResponse  result = null;
-		StringContent body = cliente.body();
+
+        ModelClient entity = new ModelClient(
+			//TODO attenzione chiedere perché non abbiamo l'informazione se il cliente è company o meno. Lascio company che è il caso più ovvio
+			type: ClientType.Company,
+			name: cliente.data.name,
+		    vatNumber: cliente.data.vat_number,
+			taxCode: cliente.data.tax_code,
+			addressStreet: cliente.data.address_street,
+			addressPostalCode: cliente.data.address_postal_code,
+			addressCity: cliente.data.address_city,
+			addressProvince: cliente.data.address_province
+		);
+
+		//TODO la response la lascio a voi che ho visto che avete fatto un lavoro sofisticato
+        API_AnagraficaNuovoSingoloResponse  result = null;
+		StringContent body = cliente.body(); //
 		HttpResponseMessage response = POST(CLIENTI_PATH, cliente.api_key, body, cliente.api_uid);
 		if ( response.IsSuccessStatusCode )
 		{
