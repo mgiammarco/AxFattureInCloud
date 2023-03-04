@@ -126,7 +126,21 @@ public static class ApiFattureInCloud
 
 	public static API_AnagraficaModificaSingoloResponse ClienteModifica ( API_AnagraficaNuovoSingoloRequest cliente )
 	{
-		API_AnagraficaModificaSingoloResponse result = null;
+
+         ModelClient entity = new ModelClient(
+            //TODO attenzione chiedere perché non abbiamo l'informazione se il cliente è company o meno. Lascio company che è il caso più ovvio
+            type: ClientType.Company,
+            name: cliente.data.name,
+            vatNumber: cliente.data.vat_number,
+            taxCode: cliente.data.tax_code,
+            addressStreet: cliente.data.address_street,
+            addressPostalCode: cliente.data.address_postal_code,
+            addressCity: cliente.data.address_city,
+            addressProvince: cliente.data.address_province
+	    );
+
+
+        API_AnagraficaModificaSingoloResponse result = null;
 		StringContent body = cliente.body();
 
 		HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
