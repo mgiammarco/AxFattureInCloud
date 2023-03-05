@@ -128,22 +128,41 @@ public static class ApiFattureInCloud
 
 		//TODO la response la lascio a voi che ho visto che avete fatto un lavoro sofisticato
         API_AnagraficaNuovoSingoloResponse  result = null;
-		StringContent body = cliente.body(); //
-		HttpResponseMessage response = POST(CLIENTI_PATH, cliente.api_key, body, cliente.api_uid);
-		if ( response.IsSuccessStatusCode )
-		{
-			var risposta = response.Content.ReadAsStringAsync();
-			string json = risposta.Result;
-			MyDbUtility.scriviLog("clienti/nuovo = " + cliente.data.name + " " + json);
-			result = JsonConvert.DeserializeObject<API_AnagraficaNuovoSingoloResponse>(json);
-		}
-		else
-		{
-			MyDbUtility.scriviLog("clienti/nuovo errore:" + response.ReasonPhrase);
-			//HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
-		}
+        var dict = new Dictionary<string, object>();
+        dict.Add("data", entity); //TODO controllare
+        var jsonstr = JsonConvert.SerializeObject(dict);
+        StringContent body = new StringContent(jsonstr, Encoding.UTF8, "application/json"); HttpResponseMessage response = POST(CLIENTI_PATH, cliente.api_key, body, cliente.api_uid);
+        string json = response.Content.ReadAsStringAsync().Result;
 
-		return result;
+
+        if (response.IsSuccessStatusCode)
+        {
+            MyDbUtility.scriviLog(json);
+            var resultFromApi = JsonConvert.DeserializeObject<CreateIssuedDocumentResponse>(json);
+
+            result = new API_AnagraficaNuovoSingoloResponse()
+            {
+                id = resultFromApi.Data.Id.Value.ToString(), //TODO controllare non so se toString sia il meglio
+                success = true
+
+            };
+            //JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
+        }
+        else
+        {
+
+            result = new API_AnagraficaNuovoSingoloResponse()
+            {
+                error = response.StatusCode.ToString(),
+                success = false
+
+            };
+            MyDbUtility.scriviLog(response.ReasonPhrase);
+            //HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
+        }
+
+
+        return result;
 	}
 
 	public static API_AnagraficaModificaSingoloResponse ClienteModifica ( API_AnagraficaNuovoSingoloRequest cliente )
@@ -163,25 +182,44 @@ public static class ApiFattureInCloud
 
 
         API_AnagraficaModificaSingoloResponse result = null;
-		StringContent body = cliente.body();
+        var dict = new Dictionary<string, object>();
+        dict.Add("data", entity); //TODO controllare
+        var jsonstr = JsonConvert.SerializeObject(dict);
+        StringContent body = new StringContent(jsonstr, Encoding.UTF8, "application/json");
         //TODO la response la lascio a voi che ho visto che avete fatto un lavoro sofisticato
 
         HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
 
-		if ( response.IsSuccessStatusCode )
-		{
-			var risposta = response.Content.ReadAsStringAsync();
-			string json = risposta.Result;
-			MyDbUtility.scriviLog("clienti/modifica = " + cliente.data.name + " " + json);
-			result = JsonConvert.DeserializeObject<API_AnagraficaModificaSingoloResponse>(json);
-		}
-		else
-		{
-			MyDbUtility.scriviLog("clienti/modifica errore:" + response.ReasonPhrase);
-			//HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
-		}
+        string json = response.Content.ReadAsStringAsync().Result;
 
-		return result;
+
+        if (response.IsSuccessStatusCode)
+        {
+            MyDbUtility.scriviLog(json);
+            var resultFromApi = JsonConvert.DeserializeObject<CreateIssuedDocumentResponse>(json);
+
+            result = new API_AnagraficaModificaSingoloResponse()
+            {
+                //id = resultFromApi.Data.Id.Value,
+                success = true
+
+            };
+            //JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
+        }
+        else
+        {
+
+            result = new API_AnagraficaModificaSingoloResponse()
+            {
+                error = response.StatusCode.ToString(),
+                success = false
+
+            };
+            MyDbUtility.scriviLog(response.ReasonPhrase);
+            //HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
+        }
+
+        return result;
 	}
 
 	#endregion
