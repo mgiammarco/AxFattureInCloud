@@ -6,14 +6,14 @@ using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using It.FattureInCloud.Sdk.Model;
-using System.Net;
-using System.Data.Entity.Infrastructure;
 using System.Text;
 
 // purtroppo l'unico modo per fare il refactoring decentemente era andare con il pessimo flusso architetturale.
 //	ergo è tutto ancora come prima se non per le api
 public static class ApiFattureInCloud
 {
+	public const decimal IVA_MULTIPLIER = 1.22m;
+
 	private static string ApiBase => ConfigurationManager.AppSettings["FattureInCloudApiBase"];
 	private static string wsUrl => ConfigurationManager.AppSettings["WsUrl"];
 
@@ -253,7 +253,8 @@ public static class ApiFattureInCloud
                 name: la.Nome,
                 //netPrice: ,
 				netPrice: Convert.ToDecimal(la.prezzo_netto),
-				grossPrice: Convert.ToDecimal(la.prezzo_lordo),
+				grossPrice: Convert.ToDecimal(la.prezzo_netto) * IVA_MULTIPLIER,
+				//Convert.ToDecimal(la.prezzo_lordo),
                 category: la.Categoria,
                 discount: Convert.ToDecimal( la.Sconto),
                 qty: Convert.ToDecimal( la.Quantita)
@@ -266,7 +267,7 @@ public static class ApiFattureInCloud
         foreach (var lp in fattura.data.lista_pagamenti)
         {
             paymentsList.Add(new IssuedDocumentPaymentsListItem(
-                amount: decimal.Parse(lp.Importo),
+                amount: decimal.Parse(lp.Importo) * IVA_MULTIPLIER,
                 dueDate: DateTime.Parse(lp.data_scadenza),
                 paidDate: DateTime.Parse(lp.data_saldo),
                 status: IssuedDocumentStatus.NotPaid
