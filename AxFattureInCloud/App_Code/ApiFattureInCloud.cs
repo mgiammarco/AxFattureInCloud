@@ -64,9 +64,6 @@ public static class ApiFattureInCloud
 	private const string CLIENTI_PATH = "entities/clients";
 	public static API_AnagraficaListaResponse ClientiLista ( API_AnagraficaListaRequest cliente )
 	{
-
-
-
         API_AnagraficaListaResponse result = new API_AnagraficaListaResponse();
 		List<AnagraficaCliente> lcv = new List<AnagraficaCliente>();
 		result.data = lcv;
@@ -86,7 +83,7 @@ public static class ApiFattureInCloud
 			{
 				AnagraficaCliente cv = new AnagraficaCliente();
 				lcv.Add(cv);
-				//TODO serve? cv.id = cn.Id;
+				cv.id = cn.Id.ToString();
 				cv.name=cn.Name;
 				cv.address_street=cn.AddressStreet;
 				cv.address_postal_code = cn.AddressPostalCode;
