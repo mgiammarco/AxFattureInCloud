@@ -252,7 +252,8 @@ public static class ApiFattureInCloud
                 code: la.Codice,
                 name: la.Nome,
                 //netPrice: ,
-				grossPrice: Convert.ToDecimal(la.prezzo_netto),
+				netPrice: Convert.ToDecimal(la.prezzo_netto),
+				grossPrice: Convert.ToDecimal(la.prezzo_lordo),
                 category: la.Categoria,
                 discount: Convert.ToDecimal( la.Sconto),
                 qty: Convert.ToDecimal( la.Quantita)
