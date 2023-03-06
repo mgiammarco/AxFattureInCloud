@@ -25,78 +25,12 @@ public class api_generic_request
 	}
 }
 
-public class api_body_info : api_generic_request
-{
-	public string[] campi = { "lista_valute", "lista_iva","nome","durata_licenza", "tipo_licenza", "lista_paesi", "lista_template", "lista_conti", "lista_metodi_pagamento" };
-}
-
 public class api_generic_response
 {
 	public bool success { get; set; }
 	public string error { get; set; }
 	public string error_code { get; set; }
 	public object error_extra { get; set; }
-}
-
-public class api_InfoListaResponse : api_generic_response
-{
-	public string nome { get; set; }
-	public int durata_licenza { get; set; }
-	public string tipo_licenza { get; set; }
-	public InfoValuta[] lista_valute { get; set; }//(Array[InfoValuta], opzionale) : Lista delle valute supportate,
-	public InfoIva[] lista_iva { get; set; }//, opzionale): Lista delle aliquote iva,
-	public string[] lista_paesi { get; set; }//(string, opzionale): (Array) Lista delle nazioni supportate per la fatturazione,
-	public InfoTemplate[] lista_template { get; set; }//(Array[InfoTemplate], opzionale): Lista dei template dei documenti(fatture, ordini, preventivi, ricevute, ndc, proforma),
-	public InfoTemplate[] lista_template_ddt { get; set; }//(Array[InfoTemplate], opzionale) : Lista dei template dei DDT,
-	public InfoTemplate[] lista_template_ddt_ftacc { get; set; }// (Array[InfoTemplate], opzionale) : Lista dei template delle fatture accompagnatorie,
-	public InfoConto[] lista_conti { get; set; }//(Array[InfoConto], opzionale): Lista dei conti,
-	public InfoMetodo[] lista_metodi_pagamento { get; set; }//(Array[InfoMetodo], opzionale) : Lista dei metodi di pagamento
-}
-
-public class InfoValuta
-{
-	public string codice { get; set; }
-	public string simbolo { get; set; }
-	public string cambio { get; set; }
-}
-public class InfoIva
-{
-	public int cod_iva { get; set; }//(integer) // Codice IVA dell'aliquota (identificativo interno),
-	public double valore_iva { get; set; }//(double) : Valore percentuale dell'IVA,
-	public string descrizione_iva { get; set; }// : Descrizione dell'aliquota IVA
-}
-
-public class InfoTemplate
-{
-	public int id { get; set; }//(integer) : Identificativo del template,
-	public string nome_template { get; set; }//(string) : Nome del template
-}
-
-public class InfoConto
-{
-	public int id { get; set; }//: Identificativo del conto,
-	public string nome_conto { get; set; }
-}
-
-public class InfoMetodo
-{
-	public int id { get; set; }// : Identificativo del metodo di pagamento,
-	public string nome_metodo { get; set; }
-
-	public string campo1 { get; set; }
-	public string desc1 { get; set; }
-
-	public string campo2 { get; set; }
-	public string desc2 { get; set; }
-
-	public string campo3 { get; set; }
-	public string desc3 { get; set; }
-
-	public string campo4 { get; set; }
-	public string desc4 { get; set; }
-
-	public string campo5 { get; set; }
-	public string desc5 { get; set; } //
 }
 
 public class API_FattureListaRequest : api_generic_request
@@ -121,17 +55,6 @@ public class API_FatturaListaResponse : api_generic_response
 public class API_DocInfoRequest : api_generic_request
 {
 	public int anno { get; set; }
-}
-
-public class API_DocInfoResponse : api_generic_response
-{
-	public DocInfo info { get; set; }
-}
-
-public class DocInfo
-{
-	public Dictionary<string, string> numerazioni { get; set; }
-	public string ddt_numero_successivo { get; set; }
 }
 
 public class API_DocLight

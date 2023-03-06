@@ -6,14 +6,14 @@ using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using It.FattureInCloud.Sdk.Model;
-using System.Net;
-using System.Data.Entity.Infrastructure;
 using System.Text;
 
 // purtroppo l'unico modo per fare il refactoring decentemente era andare con il pessimo flusso architetturale.
 //	ergo è tutto ancora come prima se non per le api
 public static class ApiFattureInCloud
 {
+	public const decimal IVA_MULTIPLIER = 1.22m;
+
 	private static string ApiBase => ConfigurationManager.AppSettings["FattureInCloudApiBase"];
 	private static string wsUrl => ConfigurationManager.AppSettings["WsUrl"];
 
@@ -65,9 +65,14 @@ public static class ApiFattureInCloud
 	public static API_AnagraficaListaResponse ClientiLista ( API_AnagraficaListaRequest cliente )
 	{
 
-		API_AnagraficaListaResponse result = null;
+
+
+        API_AnagraficaListaResponse result = new API_AnagraficaListaResponse();
+		List<AnagraficaCliente> lcv = new List<AnagraficaCliente>();
+		result.data = lcv;
 		StringContent body = cliente.body();
 		//POST("clienti/lista", body);
+		//TODO siamo sicuri che sia l'unica query di cui abbiamo bisogno?
 		HttpResponseMessage response = GET(CLIENTI_PATH, cliente.api_key, cliente.api_uid, 
 			$"?q=vat_number%20%3D%20%27{cliente.piva}%27");
 		if ( response.IsSuccessStatusCode )
@@ -75,7 +80,26 @@ public static class ApiFattureInCloud
 			var risposta = response.Content.ReadAsStringAsync();
 			string json = risposta.Result;
 			MyDbUtility.scriviLog(json);
-			result = JsonConvert.DeserializeObject<API_AnagraficaListaResponse>(json);
+			ListClientsResponse newResult = JsonConvert.DeserializeObject<ListClientsResponse>(json);
+			
+			foreach(var cn in newResult.Data)
+			{
+				AnagraficaCliente cv = new AnagraficaCliente();
+				lcv.Add(cv);
+				//TODO serve? cv.id = cn.Id;
+				cv.name=cn.Name;
+				cv.address_street=cn.AddressStreet;
+				cv.address_postal_code = cn.AddressPostalCode;
+				cv.address_city= cn.AddressCity;	
+				cv.address_province=cn.AddressProvince;
+				cv.email=cn.Email;
+				cv.phone=cn.Phone;	
+				cv.vat_number=cn.VatNumber;
+				cv.tax_code=cn.TaxCode;	
+
+
+			}
+
 			result.success = true;
 		}
 		else
@@ -89,46 +113,113 @@ public static class ApiFattureInCloud
 
 	public static API_AnagraficaNuovoSingoloResponse ClienteNuovo ( API_AnagraficaNuovoSingoloRequest cliente )
 	{
-		API_AnagraficaNuovoSingoloResponse  result = null;
-		StringContent body = cliente.body();
-		HttpResponseMessage response = POST(CLIENTI_PATH, cliente.api_key, body, cliente.api_uid);
-		if ( response.IsSuccessStatusCode )
-		{
-			var risposta = response.Content.ReadAsStringAsync();
-			string json = risposta.Result;
-			MyDbUtility.scriviLog("clienti/nuovo = " + cliente.data.name + " " + json);
-			result = JsonConvert.DeserializeObject<API_AnagraficaNuovoSingoloResponse>(json);
-		}
-		else
-		{
-			MyDbUtility.scriviLog("clienti/nuovo errore:" + response.ReasonPhrase);
-			//HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
-		}
 
-		return result;
+        ModelClient entity = new ModelClient(
+			//TODO attenzione chiedere perché non abbiamo l'informazione se il cliente è company o meno. Lascio company che è il caso più ovvio
+			type: ClientType.Company,
+			name: cliente.data.name,
+		    vatNumber: cliente.data.vat_number,
+			taxCode: cliente.data.tax_code,
+			addressStreet: cliente.data.address_street,
+			addressPostalCode: cliente.data.address_postal_code,
+			addressCity: cliente.data.address_city,
+			addressProvince: cliente.data.address_province
+		);
+
+		//TODO la response la lascio a voi che ho visto che avete fatto un lavoro sofisticato
+        API_AnagraficaNuovoSingoloResponse  result = null;
+        var dict = new Dictionary<string, object>();
+        dict.Add("data", entity); //TODO controllare
+        var jsonstr = JsonConvert.SerializeObject(dict);
+        StringContent body = new StringContent(jsonstr, Encoding.UTF8, "application/json"); HttpResponseMessage response = POST(CLIENTI_PATH, cliente.api_key, body, cliente.api_uid);
+        string json = response.Content.ReadAsStringAsync().Result;
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            MyDbUtility.scriviLog(json);
+            var resultFromApi = JsonConvert.DeserializeObject<CreateIssuedDocumentResponse>(json);
+
+            result = new API_AnagraficaNuovoSingoloResponse()
+            {
+                id = resultFromApi.Data.Id.Value.ToString(), //TODO controllare non so se toString sia il meglio
+                success = true
+
+            };
+            //JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
+        }
+        else
+        {
+
+            result = new API_AnagraficaNuovoSingoloResponse()
+            {
+                error = response.StatusCode.ToString(),
+                success = false
+
+            };
+            MyDbUtility.scriviLog(response.ReasonPhrase);
+            //HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
+        }
+
+
+        return result;
 	}
 
 	public static API_AnagraficaModificaSingoloResponse ClienteModifica ( API_AnagraficaNuovoSingoloRequest cliente )
 	{
-		API_AnagraficaModificaSingoloResponse result = null;
-		StringContent body = cliente.body();
 
-		HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
+         ModelClient entity = new ModelClient(
+            //TODO attenzione chiedere perché non abbiamo l'informazione se il cliente è company o meno. Lascio company che è il caso più ovvio
+            type: ClientType.Company,
+            name: cliente.data.name,
+            vatNumber: cliente.data.vat_number,
+            taxCode: cliente.data.tax_code,
+            addressStreet: cliente.data.address_street,
+            addressPostalCode: cliente.data.address_postal_code,
+            addressCity: cliente.data.address_city,
+            addressProvince: cliente.data.address_province
+	    );
 
-		if ( response.IsSuccessStatusCode )
-		{
-			var risposta = response.Content.ReadAsStringAsync();
-			string json = risposta.Result;
-			MyDbUtility.scriviLog("clienti/modifica = " + cliente.data.name + " " + json);
-			result = JsonConvert.DeserializeObject<API_AnagraficaModificaSingoloResponse>(json);
-		}
-		else
-		{
-			MyDbUtility.scriviLog("clienti/modifica errore:" + response.ReasonPhrase);
-			//HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
-		}
 
-		return result;
+        API_AnagraficaModificaSingoloResponse result = null;
+        var dict = new Dictionary<string, object>();
+        dict.Add("data", entity); //TODO controllare
+        var jsonstr = JsonConvert.SerializeObject(dict);
+        StringContent body = new StringContent(jsonstr, Encoding.UTF8, "application/json");
+        //TODO la response la lascio a voi che ho visto che avete fatto un lavoro sofisticato
+
+        HttpResponseMessage response = POST(CLIENTI_PATH + cliente.data.code, cliente.api_key, body, cliente.api_uid, true);
+
+        string json = response.Content.ReadAsStringAsync().Result;
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            MyDbUtility.scriviLog(json);
+            var resultFromApi = JsonConvert.DeserializeObject<CreateIssuedDocumentResponse>(json);
+
+            result = new API_AnagraficaModificaSingoloResponse()
+            {
+                //id = resultFromApi.Data.Id.Value,
+                success = true
+
+            };
+            //JsonConvert.DeserializeObject<API_DocNuovoResponse>(json);
+        }
+        else
+        {
+
+            result = new API_AnagraficaModificaSingoloResponse()
+            {
+                error = response.StatusCode.ToString(),
+                success = false
+
+            };
+            MyDbUtility.scriviLog(response.ReasonPhrase);
+            //HttpContext.Current.Response.Write("PostCliente: " + response.ReasonPhrase);
+        }
+
+        return result;
 	}
 
 	#endregion
@@ -161,7 +252,9 @@ public static class ApiFattureInCloud
                 code: la.Codice,
                 name: la.Nome,
                 //netPrice: ,
-				grossPrice: Convert.ToDecimal(la.prezzo_netto),
+				netPrice: Convert.ToDecimal(la.prezzo_netto),
+				grossPrice: Convert.ToDecimal(la.prezzo_netto) * IVA_MULTIPLIER,
+				//Convert.ToDecimal(la.prezzo_lordo),
                 category: la.Categoria,
                 discount: Convert.ToDecimal( la.Sconto),
                 qty: Convert.ToDecimal( la.Quantita)
@@ -174,7 +267,7 @@ public static class ApiFattureInCloud
         foreach (var lp in fattura.data.lista_pagamenti)
         {
             paymentsList.Add(new IssuedDocumentPaymentsListItem(
-                amount: decimal.Parse(lp.Importo),
+                amount: decimal.Parse(lp.Importo) * IVA_MULTIPLIER,
                 dueDate: DateTime.Parse(lp.data_scadenza),
                 paidDate: DateTime.Parse(lp.data_saldo),
                 status: IssuedDocumentStatus.NotPaid
