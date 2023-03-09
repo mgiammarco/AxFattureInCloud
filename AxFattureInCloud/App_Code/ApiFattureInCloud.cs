@@ -257,10 +257,10 @@ public static class ApiFattureInCloud
 				//Convert.ToDecimal(la.prezzo_lordo),
                 category: la.Categoria,
                 discount: Convert.ToDecimal( la.Sconto),
-                qty: Convert.ToDecimal( la.Quantita)
-                //vat: new VatType(
-                //    id: Convert.ToInt32(la.cod_iva)
-                //)
+                qty: Convert.ToDecimal( la.Quantita),
+                vat: new VatType(
+                    id: Convert.ToInt32(la.cod_iva)
+                )
             ));
         }
 		
@@ -302,7 +302,7 @@ public static class ApiFattureInCloud
 			)
 		)
 		{
-			UseGrossPrices = true
+			UseGrossPrices = false
 		};
 
 		var dict = new Dictionary<string, object>();
