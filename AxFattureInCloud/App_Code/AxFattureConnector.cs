@@ -413,7 +413,8 @@ public class AxFattureConnector
             fattTot += art.prezzo_netto;
         }
 
-        if (billExtra.SPESEINCASSO.HasValue && billExtra.SPESEINCASSO.Value) {
+        if (billExtra.SPESEINCASSO.HasValue && billExtra.SPESEINCASSO.Value) 
+        {
             ListaArticoli art = new ListaArticoli
             {
                 Ordine = nOrd++,
@@ -436,9 +437,12 @@ public class AxFattureConnector
             fattTot += art.prezzo_netto;
         }
 
+
+        var importTOT = (billExtra.SPESEINCASSO ?? false) ?
+            ((decimal)billHead.BILL_IMPORT + billExtra.SPESEINCASSOVAL) : (decimal)billHead.BILL_IMPORT;
         fattura.data.lista_pagamenti.Add(new ListaPagamenti
         {
-            Importo = billHead.BILL_IMPORT.ToString(),
+            Importo = importTOT.ToString(),
             Metodo = "not",
             data_scadenza = billHead.BILL_DATE.ToString("dd/MM/yyyy"),////TODO: cosa ci metto ?
             data_saldo = billHead.BILL_DATE.ToString("dd/MM/yyyy") ////TODO:  cosa ci metto?
